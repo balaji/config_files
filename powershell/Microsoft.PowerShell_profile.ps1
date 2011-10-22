@@ -22,3 +22,10 @@ function mjr { mvn jetty:run }
 #common
 set-alias c "cls"
 function h { cd ~ }
+
+function ssh-agent { C:\Progra~2\Git\bin\ssh-agent.exe }
+function ssh-add { C:\Progra~2\Git\bin\ssh-add.exe }
+
+# Load posh-git example profile
+. 'C:\Users\balajid\gitprojects\posh-git\profile.example.ps1'
+
