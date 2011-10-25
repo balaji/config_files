@@ -16,16 +16,18 @@ function w {cd C:\Users\balajid\Documents\thoughtworks\motech\GHANA-National }
 
 #mvn aliases
 function m { mvn $args }
-function mci { mvn clean install $args }
+function mci { mvn clean install --define=browser=htmlunit $args }
 function mjr { mvn jetty:run }
 
 #common
 set-alias c "cls"
+set-alias grep "findstr"
 function h { cd ~ }
+function q { exit }
 
-function ssh-agent { C:\Progra~2\Git\bin\ssh-agent.exe }
-function ssh-add { C:\Progra~2\Git\bin\ssh-add.exe }
-
-# Load posh-git example profile
+# post-git https://github.com/dahlbyk/posh-git
 . 'C:\Users\balajid\gitprojects\posh-git\profile.example.ps1'
 
+#pscx
+import-module pscx
+import-module powertab

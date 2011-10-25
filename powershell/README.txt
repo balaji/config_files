@@ -1,1 +1,2 @@
-Load posh-git from: https://github.com/dahlbyk/posh-git
+posh-git https://github.com/dahlbyk/posh-git
+powertab http://powertab.codeplex.com/
