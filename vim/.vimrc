@@ -2,7 +2,6 @@ set nocompatible
 filetype off                 
 filetype plugin indent on
 syntax on
-set autochdir 
 set number 
 set incsearch
 set hlsearch
@@ -13,6 +12,7 @@ set shiftwidth=2
 set expandtab
 set smarttab
 set autoindent
+set autochdir
 set cindent
 set nowritebackup
 set nobackup
@@ -27,29 +27,33 @@ set omnifunc=syntaxcomplete#Complete
 set runtimepath+=~/.vim/bundle/vundle
 
 call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-git'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'scrooloose/nerdtree'
-Bundle 'ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'edkolev/tmuxline.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-bufferline'
-Bundle 'vim-ruby/vim-ruby'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-Bundle "L9"
-Bundle "FuzzyFinder"
-Bundle "Valloric/YouCompleteMe"
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-git'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-bufferline'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Raimondi/delimitMate'
 
-colorscheme solarized
-set background=light
 if has('gui_running')
+  colorscheme monokai
 	set guifont=Source_Code_Pro:h12
 endif
+
+imap ss <esc>a<Plug>snipMateNextOrTrigger
+smap ss <Plug>snipMateNextOrTrigger
