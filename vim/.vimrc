@@ -11,7 +11,6 @@ set shiftwidth=2
 set expandtab
 set smarttab
 set autoindent
-set autochdir
 set cindent
 set nowritebackup
 set nobackup
@@ -56,20 +55,36 @@ Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'guns/vim-sexp'
 Plugin 'guns/vim-clojure-static'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlp.vim'
-Plugin 'bling/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-bufferline'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'rking/ag.vim'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-rbenv'
+Plugin 'ctrlp.vim'
+Plugin 'bling/vim-bufferline'
+Plugin 'mhinz/vim-signify'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 call vundle#end()
+
+let g:unite_enable_start_insert = 1
+nmap <space> [unite]
+nnoremap [unite] <nop>
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <silent> [unite]f :<C-u>Unite grep:.<cr>
+nnoremap <silent> [unite]s :<C-U>Unite -buffer-name=buffers buffer<cr>
+nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=buffer -quick-match buffer<cr>
+
 filetype plugin indent on
 
 if has('gui_running')
   colorscheme monokai
+  set guifont=Fira\ Mono\ for\ Powerline:h15
 endif
