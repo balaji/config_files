@@ -1,21 +1,18 @@
-source $HOME/Code/zsh-git-prompt/zshrc.sh
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt extendedglob
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/Users/bala/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+source $HOME/Projects/zsh-git-prompt/zshrc.sh
 PROMPT='%#%f '
-PATH=$PATH:$HOME/.rvm/bin:$HOME/Programs/bin:/usr/local/mysql/bin:/opt/local/bin
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx2048m -XX:MaxPermSize=1024m -XX:+UseConcMarkSweepGC -Djava.awt.headless=true"
-export MAVEN_OPTS=$JAVA_OPTS
-
-#VirtualBox headless
-alias startvm='VBoxHeadless --startvm centos &'
-alias stopvm='VBoxManage controlvm centos poweroff'
-
-#ghana-national
-alias w='cd ~/Code/motech/ghana-national'
-
-#mvn
-alias mci='mvn clean install'
-alias mjr='mvn jetty:run'
 
 #git
 alias g='git'
@@ -26,3 +23,6 @@ alias ga='git add'
 alias gsh='git stash'
 alias gco='git commit'
 alias gr='git rm'
+
+PATH=~/.rbenv/shims:$PATH
+
