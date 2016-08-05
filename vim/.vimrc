@@ -33,6 +33,24 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 "pathogen
 execute pathogen#infect()
 
@@ -58,12 +76,12 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'rking/ag.vim'
-Plugin 'Shougo/neocomplcache.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-rbenv'
 Plugin 'ctrlp.vim'
@@ -71,6 +89,7 @@ Plugin 'bling/vim-bufferline'
 Plugin 'mhinz/vim-signify'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'mxw/vim-jsx'
 call vundle#end()
 
 let g:unite_enable_start_insert = 1
@@ -84,7 +103,3 @@ nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=buffer -quick-match buffer<c
 
 filetype plugin indent on
 
-if has('gui_running')
-  colorscheme monokai
-  set guifont=Fira\ Mono\ for\ Powerline:h15
-endif
