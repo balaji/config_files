@@ -40,7 +40,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(slime paredit evil-paredit)
+   dotspacemacs-additional-packages '(slime
+                                      paredit
+                                      evil-paredit
+                                      evil-terminal-cursor-changer
+                                      rainbow-delimiters
+                                      hlinum)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -106,7 +111,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Source Code Pro for Powerline"
                                :size 13
                                :weight normal
                                :width normal
@@ -253,6 +258,19 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (unless (display-graphic-p)
+    (require 'evil-terminal-cursor-changer)
+    (evil-terminal-cursor-changer-activate))
+
+  (setq evil-motion-state-cursor 'box)  
+  (setq evil-visual-state-cursor 'box)  
+  (setq evil-normal-state-cursor 'box)  
+  (setq evil-insert-state-cursor 'bar)  
+  (setq evil-emacs-state-cursor  'hbar) 
+
+  (require 'hlinum)
+  (hlinum-activate)
+  (helm-linum-relative-mode 1)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

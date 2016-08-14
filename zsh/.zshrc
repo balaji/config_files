@@ -27,5 +27,3 @@ alias gfu='git fetch upstream'
 
 alias yd="youtube-dl"
 
-PATH=~/.rbenv/shims:$PATH
-
