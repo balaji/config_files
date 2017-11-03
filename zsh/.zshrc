@@ -1,29 +1,15 @@
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=5000
+SAVEHIST=5000
 setopt extendedglob
 bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/Users/bala/.zshrc'
-
+zstyle :compinstall filename '/Users/balaji/.zshrc'
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-source $HOME/Projects/zsh-git-prompt/zshrc.sh
-PROMPT='%#%f '
 
-#git
-alias g='git'
-alias gpl='git pull'
-alias gpu='git push'
-alias gst='git status'
-alias ga='git add'
-alias gsh='git stash'
-alias gco='git commit'
-alias gr='git rm'
-alias gfu='git fetch upstream'
-
-alias yd="youtube-dl"
-
+source $HOME/Personal/zsh-git-prompt/zshrc.sh
+source /Users/balaji/Personal/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+PROMPT='%F{cyan}%n%f@%F{green}%m%f %F{yellow}%~%f %B$(git_super_status)%b 
+$ '
+GIT_PROMPT_EXECUTABLE="haskell"
