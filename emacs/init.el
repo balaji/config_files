@@ -68,7 +68,7 @@
   (require 'powerline)
   (powerline-center-evil-theme)
   (require 'color-theme)
-  (color-theme-solarized))
+  (color-theme-monokai))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
