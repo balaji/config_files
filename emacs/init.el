@@ -1,10 +1,7 @@
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'load-path "~/.emacs.d/vendor/powerline")
-
 ;;SLIME
 (add-to-list 'load-path "~/Projects/slime")
 (require 'slime)
-(setq inferior-lisp-program "/usr/local/bin/ccl")
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
 (slime-setup)
 (slime-setup '(slime-fancy))
 
@@ -29,7 +26,6 @@
   (package-refresh-contents))
 
 ;;Helm. Dear Helm.
-(require 'helm)
 (require 'helm-config)
 (helm-mode 1)
 (helm-autoresize-mode t)
@@ -45,10 +41,12 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x g") 'helm-projectile-grep)
 (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x o") 'helm-occur)
 
 (global-company-mode)
+(setq vc-follow-symlinks t)
 
 ;;vim, dear vim.
 (evil-mode)
@@ -63,11 +61,25 @@
 (global-set-key [f9] 'cider-jack-in)
 
 ;;Editor customizations
-(set-default-font "Fira Mono-13")
-(require 'color-theme)
-(color-theme-monokai)
 (global-linum-mode)
 (setq linum-format "%d ")
-(require 'powerline)
-(powerline-center-evil-theme)
-(menu-bar-mode)
+(when (display-graphic-p) 
+  (set-default-font "Consolas-13")
+  (require 'powerline)
+  (powerline-center-evil-theme)
+  (require 'color-theme)
+  (color-theme-solarized))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -15,6 +15,7 @@ alias m='mvn'
 alias mcp='mvn clean package'
 alias mci='mvn clean install'
 alias mc='mvn clean'
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 
 export ANACONDA_HOME=$HOME/anaconda3
 export ANDROID_HOME=$HOME/Library/Android/sdk
