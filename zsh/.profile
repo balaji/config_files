@@ -9,7 +9,7 @@ alias gr='git rm'
 alias gfu='git fetch upstream'
 
 alias yd="youtube-dl"
-alias ls="ls -G"
+alias ls="ls --color=auto"
 
 alias m='mvn'
 alias mcp='mvn clean package'
@@ -25,4 +25,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
+# fsharp quirks
+export TERM=xterm
+export FrameworkPathOverride=/usr/lib/mono/4.5/
 
