@@ -1,10 +1,3 @@
-;;SLIME
-(add-to-list 'load-path "~/Projects/slime")
-(require 'slime)
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
-(slime-setup)
-(slime-setup '(slime-fancy))
-
 ;;PACKAGE MANAGER
 (defvar my-packages '(better-defaults
                       starter-kit
@@ -17,13 +10,21 @@
                       company
                       evil
                       rainbow-delimiters
-                      clojure-mode))
+                      color-theme
+                      color-theme-solarized
+                      powerline
+                      racket-mode
+		      ))
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa". "http://melpa.org/packages/"))
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
+
+(dolist (package my-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;;Helm. Dear Helm.
 (require 'helm-config)
@@ -51,14 +52,12 @@
 ;;vim, dear vim.
 (evil-mode)
 
-(add-hook 'slime-repl-mode-hook 'paredit-mode)
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'racket-repl-mode-hook 'paredit-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;;Global key maps
 (global-set-key [f7] 'paredit-mode)
 (global-set-key [f6] 'evil-mode)
-(global-set-key [f9] 'cider-jack-in)
 
 ;;Editor customizations
 (global-linum-mode)
@@ -68,7 +67,7 @@
   (require 'powerline)
   (powerline-center-evil-theme)
   (require 'color-theme)
-  (color-theme-monokai))
+  (color-theme-solarized))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -76,10 +75,15 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
+    (color-theme-heroku org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(menu-bar-mode t)
+(set-default-font "Consolas 18")
+(setq racket-program "/usr/local/bin/racket")
+(setq tab-always-indent 'complete)
