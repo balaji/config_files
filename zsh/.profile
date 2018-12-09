@@ -28,4 +28,4 @@ fi
 # fsharp quirks
 export TERM=xterm
 export FrameworkPathOverride=/usr/lib/mono/4.5/
-
+alias python=python3

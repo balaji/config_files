@@ -83,7 +83,5 @@
  ;; If there is more than one, they won't work right.
  )
 
-(menu-bar-mode t)
-(set-default-font "Consolas 18")
 (setq racket-program "/usr/local/bin/racket")
 (setq tab-always-indent 'complete)
