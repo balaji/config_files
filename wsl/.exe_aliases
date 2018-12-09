@@ -1,0 +1,4 @@
+alias java=java.exe
+alias javac=javac.exe
+alias docker=docker.exe
+alias docker-machine=docker-machine.exe
