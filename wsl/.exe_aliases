@@ -1,4 +1,3 @@
-alias java=java.exe
-alias javac=javac.exe
-alias docker=docker.exe
-alias docker-machine=docker-machine.exe
+if [ "$(uname 2> /dev/null)" == "Linux" ]; then
+    alias docker-machine=docker-machine.exe
+fi
