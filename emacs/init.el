@@ -10,10 +10,13 @@
                       company
                       evil
                       rainbow-delimiters
-                      color-theme
-                      color-theme-solarized
-                      powerline
                       racket-mode
+                      elpy
+                      cider
+                      clojure-mode
+                      clojure-mode-extra-font-locking
+                      elein
+                      zenburn-theme
 		      ))
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -34,7 +37,7 @@
       helm-apropos-fuzzy-match t
       helm-M-x-fuzzy-match t
       helm-recentf-fuzzy-match t)
-(projectile-global-mode)
+(projectile-mode t)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
@@ -44,7 +47,7 @@
 (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x o") 'helm-occur)
+(global-set-key (kbd "C-c h o") 'helm-occur)
 
 (global-company-mode)
 (setq vc-follow-symlinks t)
@@ -60,22 +63,21 @@
 (global-set-key [f6] 'evil-mode)
 
 ;;Editor customizations
-(global-linum-mode)
-(setq linum-format "%d ")
+(global-display-line-numbers-mode)
+(setq linum-format "%4d \u2502 ")
 (when (display-graphic-p) 
-  (set-default-font "Consolas-13")
-  (require 'powerline)
-  (powerline-center-evil-theme)
-  (require 'color-theme)
-  (color-theme-solarized))
+  (set-default-font "Consolas-13"))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
  '(package-selected-packages
    (quote
-    (color-theme-heroku org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
+    (zenburn-theme doom-themes color-theme-tangotango color-theme-ir-black color-theme-heroku org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -83,5 +85,59 @@
  ;; If there is more than one, they won't work right.
  )
 
-(setq racket-program "/usr/local/bin/racket")
+(setq racket-program "/usr/bin/racket")
 (setq tab-always-indent 'complete)
+(load-theme 'zenburn t)
+;; For elpy
+(setq elpy-rpc-python-command "python3")
+;; For interactive shell
+(setq python-shell-interpreter "python3")
+
+;;;;
+;; Clojure
+;;;;
+
+;; Enable paredit for Clojure
+(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+
+;; This is useful for working with camel-case tokens, like names of
+;; Java classes (e.g. JavaClassName)
+(add-hook 'clojure-mode-hook 'subword-mode)
+
+;; A little more syntax highlighting
+(require 'clojure-mode-extra-font-locking)
+
+;;;;
+;; Cider
+;;;;
+
+;; provides minibuffer documentation for the code you're typing into
+;; the repl
+(add-hook 'cider-mode-hook 'eldoc-mode)
+
+;; go right to the REPL buffer when it's finished connecting
+(setq cider-repl-pop-to-buffer-on-connect t)
+
+;; When there's a cider error, show its buffer and switch to it
+(setq cider-show-error-buffer t)
+(setq cider-auto-select-error-buffer t)
+
+;; Where to store the cider history.
+(setq cider-repl-history-file "~/.emacs.d/cider-history")
+
+;; Wrap when navigating history.
+(setq cider-repl-wrap-history t)
+
+;; enable paredit in your REPL
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+;; enable line numbers mode in repl immediately
+;;(add-hook 'cider-repl-mode-hook 'display-line-numbers-mode)
+
+;; Use clojure mode for other extensions
+(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
+
+;;disable evil for cider repl
+(evil-set-initial-state 'cider-repl-mode 'emacs)

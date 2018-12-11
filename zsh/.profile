@@ -9,12 +9,15 @@ alias gr='git rm'
 alias gfu='git fetch upstream'
 
 alias yd="youtube-dl"
-alias ls="ls --color=auto"
+alias ls="ls -G"
 
 alias m='mvn'
 alias mcp='mvn clean package'
 alias mci='mvn clean install'
 alias mc='mvn clean'
+
+alias e="emacsclient -t"
+alias ec="emacsclient -c"
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -25,7 +28,10 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-# fsharp quirks
-export TERM=xterm
-export FrameworkPathOverride=/usr/lib/mono/4.5/
-alias python=python3
+
+if [ "$(uname 2> /dev/null)" == "Linux" ]; then
+    export TERM=xterm-256color
+    export FrameworkPathOverride=/usr/lib/mono/4.5/
+    alias python=python3
+    alias ls="ls --color=auto"
+fi
