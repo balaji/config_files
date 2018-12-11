@@ -9,7 +9,6 @@ alias gr='git rm'
 alias gfu='git fetch upstream'
 
 alias yd="youtube-dl"
-alias ls="ls -G"
 
 alias m='mvn'
 alias mcp='mvn clean package'
@@ -34,4 +33,10 @@ if [ "$(uname 2> /dev/null)" == "Linux" ]; then
     export FrameworkPathOverride=/usr/lib/mono/4.5/
     alias python=python3
     alias ls="ls --color=auto"
+    export LS_COLORS='ow=01;36;40'
 fi
+
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+    source ~/.config/exercism/exercism_completion.zsh
+fi
+

@@ -16,7 +16,9 @@
                       clojure-mode
                       clojure-mode-extra-font-locking
                       elein
+                      markdown-mode
                       zenburn-theme
+                      ace-window
 		      ))
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -48,6 +50,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-x o") 'ace-window)
 
 (global-company-mode)
 (setq vc-follow-symlinks t)
@@ -64,7 +67,6 @@
 
 ;;Editor customizations
 (global-display-line-numbers-mode)
-(setq linum-format "%4d \u2502 ")
 (when (display-graphic-p) 
   (set-default-font "Consolas-13"))
 (custom-set-variables
@@ -77,7 +79,7 @@
     ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
  '(package-selected-packages
    (quote
-    (zenburn-theme doom-themes color-theme-tangotango color-theme-ir-black color-theme-heroku org-magit evil-magit color-theme-solarized solaire-mode starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company color-theme-monokai better-defaults ag))))
+    (ace-window markdown-mode zenburn-theme org-magit evil-magit starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company better-defaults ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
