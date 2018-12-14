@@ -15,8 +15,15 @@ alias mcp='mvn clean package'
 alias mci='mvn clean install'
 alias mc='mvn clean'
 
-alias e="emacsclient -t"
-alias ec="emacsclient -c"
+alias vi="e"
+alias vim="e"
+
+function e()
+{
+  # -c creates a new frame
+  # -a= fires a new emacs server if none is running
+  emacsclient -c -a= $*
+}
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
