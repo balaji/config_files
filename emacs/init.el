@@ -22,9 +22,10 @@
                       markdown-mode
                       ace-window
                       fsharp-mode
+                      flycheck
 		      ))
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("melpa". "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa". "http://melpa.org/packages/"))
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -38,22 +39,33 @@
 ;;;;
 (require 'helm-config)
 (helm-mode 1)
-(helm-autoresize-mode t)
+(helm-autoresize-mode 1)
 (setq helm-buffers-fuzzy-matching t
       helm-apropos-fuzzy-match t
       helm-M-x-fuzzy-match t
       helm-recentf-fuzzy-match t)
-(projectile-mode t)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x g") 'helm-projectile-grep)
-(global-set-key (kbd "C-x f") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-c r b") 'helm-filtered-bookmarks)
+
+;;;;
+;; Projectile
+;;;;
+(require 'projectile)
+(require 'helm-projectile)
+(projectile-mode t)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(global-set-key (kbd "C-x g") 'helm-projectile-grep)
+(global-set-key (kbd "C-x f") 'helm-projectile-find-file)
+
+;;;;
+;; Ace Window
+;;;;
 (global-set-key (kbd "C-x o") 'ace-window)
 
 ;;;;
@@ -69,7 +81,11 @@
 ;; Racket
 ;;;;
 (require 'racket-mode)
-(setq racket-program "/usr/local/bin/racket")
+(cond
+ ((eq system-type 'darwin)
+  (setq racket-program "/usr/local/bin/racket"))
+ ((eq system-type 'gnu/linux)
+  (setq racket-program "/usr/bin/racket")))
 (setq tab-always-indent 'complete)
 (add-hook 'racket-repl-mode-hook 'paredit-mode)
 
@@ -107,8 +123,13 @@
 ;;;;
 ;; Fsharp
 ;;;;
-(setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
-(setq fsharp-compiler "/usr/local/bin/fsharpc")
+(cond
+ ((eq system-type 'darwin)
+  (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
+  (setq fsharp-compiler "/usr/local/bin/fsharpc"))
+ ((eq system-type 'gnu/linux)
+  (setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
+  (setq fsharp-compiler "/usr/bin/fsharpc")))
 (add-hook 'fsharp-mode-hook 'highlight-indentation-mode)
 
 ;;;;
@@ -117,6 +138,7 @@
 (require 'paredit)
 (require 'rainbow-delimiters)
 (require 'flycheck)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (global-flycheck-mode)
 (global-set-key [f7] 'paredit-mode)
 ;;rainbow delimiters everywhere
