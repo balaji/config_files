@@ -34,6 +34,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
 #if [ "$(uname 2> /dev/null)" == "Linux" ]; then
 #    export TERM=xterm-256color

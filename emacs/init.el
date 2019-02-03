@@ -24,9 +24,15 @@
                       ace-window
                       fsharp-mode
                       flycheck
+                      haskell-mode
+                      intero
+                      hindent
+                    
 		      ))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("melpa". "http://melpa.org/packages/"))
+
+(add-to-list 'package-archives
+             '("melpa". "http://stable.melpa.org/packages/")
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -155,6 +161,18 @@
 (load-theme 'zenburn t)
 (global-display-line-numbers-mode)
 
+;;;;
+;; Haskell
+;;;;
+(require 'intero)
+(require 'haskell-mode)
+(require 'haskell-interactive-mode)
+(require 'haskell)
+(require 'hindent)
+(add-hook 'haskell-mode-hook 'hindent-mode)
+(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+  (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
+  (add-to-list 'exec-path my-cabal-path))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -163,9 +181,12 @@
  '(custom-safe-themes
    (quote
     ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
+ '(haskell-tags-on-save t)
  '(package-selected-packages
    (quote
-    (ace-window markdown-mode zenburn-theme org-magit evil-magit starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company better-defaults ag))))
+    (go-mode hindent ace-window markdown-mode zenburn-theme org-magit evil-magit starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company better-defaults ag))))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
