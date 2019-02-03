@@ -20,7 +20,6 @@
                       clojure-mode-extra-font-locking
                       elein
                       markdown-mode
-                      zenburn-theme
                       ace-window
                       fsharp-mode
                       flycheck
@@ -158,7 +157,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 ;; editor stuff.
 (setq vc-follow-symlinks t)
-(load-theme 'zenburn t)
+(load-theme 'solarized t)
 (global-display-line-numbers-mode)
 
 ;;;;
@@ -182,14 +181,19 @@
    (quote
     ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
  '(haskell-tags-on-save t)
- '(package-selected-packages
+  '(package-selected-packages
    (quote
-    (go-mode hindent ace-window markdown-mode zenburn-theme org-magit evil-magit starter-kit-lisp rainbow-delimiters powerline helm-projectile helm-ag evil company better-defaults ag))))
-
-
+    (starter-kit-lisp rainbow-delimiters racket-mode markdown-mode helm-projectile helm-ag fsharp-mode evil elpy elein clojure-mode-extra-font-locking cider better-defaults ag ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (let ((mode (if (display-graphic-p frame) 'dark 'light)))
+              (set-frame-parameter frame 'background-mode mode)
+              (set-terminal-parameter frame 'background-mode mode))
+            (enable-theme 'solarized)))

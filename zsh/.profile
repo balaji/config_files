@@ -36,11 +36,15 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
-#if [ "$(uname 2> /dev/null)" == "Linux" ]; then
-#    export TERM=xterm-256color
-#    export FrameworkPathOverride=/usr/lib/mono/4.5/
-#    alias python=python3
-#    alias ls="ls --color=auto"
-#    export LS_COLORS='ow=01;36;40'
-#fi
-
+case `uname` in
+    Darwin)
+        alias ls="ls -G"
+        ;;
+    Linux)
+        export TERM=xterm-256color
+        export FrameworkPathOverride=/usr/lib/mono/4.5/
+        alias python=python3
+        alias ls="ls --color=auto"
+        export LS_COLORS='ow=01;36;40'
+        ;;
+esac
