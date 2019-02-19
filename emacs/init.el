@@ -1,4 +1,4 @@
-;;;;
+;;;
 ;; Package Manager
 ;;;;
 (require 'package)
@@ -26,7 +26,7 @@
                       haskell-mode
                       intero
                       hindent
-                    
+                      zenburn-theme
 		      ))
 
 (add-to-list 'package-archives
@@ -149,6 +149,15 @@
 (global-set-key [f7] 'paredit-mode)
 ;;rainbow delimiters everywhere
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (let ((mode (if (display-graphic-p frame) 'dark 'light)))
+              (set-frame-parameter frame 'background-mode mode)
+              (set-terminal-parameter frame 'background-mode mode))
+            (enable-theme 'zenburn)))
+
+(setq ispell-program-name "/usr/local/bin/ispell")
+
 
 ;;;;
 ;; Misc
@@ -157,7 +166,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 ;; editor stuff.
 (setq vc-follow-symlinks t)
-(load-theme 'solarized t)
+(load-theme 'zenburn t)
 (global-display-line-numbers-mode)
 
 ;;;;
@@ -177,23 +186,47 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-safe-themes
    (quote
-    ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" default)))
+    ("84890723510d225c45aaff941a7e201606a48b973f0121cb9bcb0b9399be8cba" default)))
+ '(fci-rule-color "#383838")
  '(haskell-tags-on-save t)
-  '(package-selected-packages
+ '(nrepl-message-colors
    (quote
-    (starter-kit-lisp rainbow-delimiters racket-mode markdown-mode helm-projectile helm-ag fsharp-mode evil elpy elein clojure-mode-extra-font-locking cider better-defaults ag ace-window))))
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(package-selected-packages
+   (quote
+    (zenburn-theme starter-kit-lisp rainbow-delimiters racket-mode markdown-mode helm-projectile helm-ag fsharp-mode evil elpy elein clojure-mode-extra-font-locking cider better-defaults ag ace-window)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (let ((mode (if (display-graphic-p frame) 'dark 'light)))
-              (set-frame-parameter frame 'background-mode mode)
-              (set-terminal-parameter frame 'background-mode mode))
-            (enable-theme 'solarized)))

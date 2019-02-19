@@ -15,16 +15,6 @@ alias mcp='mvn clean package'
 alias mci='mvn clean install'
 alias mc='mvn clean'
 
-alias vi="e"
-alias vim="e"
-
-function e()
-{
-  # -c creates a new frame
-  # -a= fires a new emacs server if none is running
-  emacsclient -c -a= $*
-}
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
@@ -34,7 +24,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export PATH="/usr/local/sbin:/Applications/Emacs.app/Contents/MacOS/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
 case `uname` in
     Darwin)
@@ -48,3 +38,12 @@ case `uname` in
         export LS_COLORS='ow=01;36;40'
         ;;
 esac
+
+function e()
+{
+  # -c creates a new frame
+  # -a= fires a new emacs server if none is running
+  emacsclient -c -a= $*
+}
+alias vi="e"
+alias vim="e"
