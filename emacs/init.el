@@ -3,8 +3,6 @@
 ;;;;
 (require 'package)
 (defvar my-packages '(better-defaults
-                      starter-kit
-                      starter-kit-lisp
                       projectile
                       ag
                       helm
@@ -13,12 +11,12 @@
                       company
                       evil
                       rainbow-delimiters
-                      racket-mode
                       elpy
                       cider
                       clojure-mode
                       clojure-mode-extra-font-locking
-                      elein
+                      paredit
+                      racket-mode
                       markdown-mode
                       ace-window
                       fsharp-mode
@@ -30,7 +28,7 @@
 		      ))
 
 (add-to-list 'package-archives
-             '("melpa". "http://stable.melpa.org/packages/")
+             '("melpa". "https://melpa.org/packages/")
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (when (not package-archive-contents)

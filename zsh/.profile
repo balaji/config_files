@@ -13,7 +13,7 @@ alias yd="youtube-dl"
 alias m='mvn'
 alias mcp='mvn clean package'
 alias mci='mvn clean install'
-alias mc='mvn clean'
+#alias mc='mvn clean'
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -24,7 +24,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-export PATH="/usr/local/sbin:/Applications/Emacs.app/Contents/MacOS/bin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:/usr/local/go/bin:$PATH"
 
 case `uname` in
     Darwin)
@@ -36,14 +36,17 @@ case `uname` in
         alias python=python3
         alias ls="ls --color=auto"
         export LS_COLORS='ow=01;36;40'
+        export DOTNET_ROOT=$HOME/dotnet 
+        export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin
         ;;
 esac
 
+export ALTERNATE_EDITOR=""
 function e()
 {
   # -c creates a new frame
   # -a= fires a new emacs server if none is running
-  emacsclient -c -a= $*
+  emacsclient --tty $*
 }
 alias vi="e"
 alias vim="e"
