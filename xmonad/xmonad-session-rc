@@ -1,0 +1,9 @@
+xrdb -merge ~/.Xresources &
+setxkbmap -option "ctrl:nocaps" &
+nm-applet --sm-disable &
+blueman-applet &
+volumeicon &
+/home/balaji/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize &
+stalonetray &
+xscreensaver -no-splash &
+

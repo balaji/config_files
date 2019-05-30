@@ -3,7 +3,7 @@ Config { font = "xft:Consolas:size=9:bold:antialias=true"
         , border = TopB
         , bgColor = "black"
         , fgColor = "grey"
-        , position = TopW L 100
+        , position = TopW L 95
         , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                         , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem: <usedratio>%"] 10
@@ -12,8 +12,9 @@ Config { font = "xft:Consolas:size=9:bold:antialias=true"
                         , Run Com "whoami" [] "" 36000
                         , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                         , Run StdinReader
+                        , Run Wireless "wlan0" [ "-t", "<essid>" ] 10
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | %cpu% | %memory% * %swap% | %battery%}{<fc=#ee9a00>%date%</fc> | %whoami% | %CYVR% "
+        , template = "%StdinReader% | %cpu% | %memory% * %swap% | %battery%}{<fc=#ee9a00>%date%</fc> | %whoami% | %wlan0wi% | %CYVR% "
         }
