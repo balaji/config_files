@@ -14,10 +14,4 @@ $ '
 GIT_PROMPT_EXECUTABLE="haskell"
 # if [ "$TMUX" = "" ]; then tmux new -A -s main; fi
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-source /usr/local/miniconda3/bin/activate spotify
-function burk {
-  host=$(burklee | fzf)
-  [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"
-}
-
 source .zprofile

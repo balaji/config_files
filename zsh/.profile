@@ -24,7 +24,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-export PATH="/usr/local/sbin:$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/go/bin:$HOME/.ghcup/bin:/usr/local/go/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$PATH"
 
 case `uname` in
     Darwin)
@@ -38,6 +38,7 @@ case `uname` in
         export LS_COLORS='ow=01;36;40'
         export DOTNET_ROOT=$HOME/dotnet 
         export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin
+	      setxkbmap -option ctrl:nocaps
         ;;
 esac
 
@@ -50,3 +51,9 @@ function e()
 }
 alias vi="e"
 alias vim="e"
+
+source /usr/local/miniconda3/bin/activate spotify
+function burk {
+  host=$(burklee | fzf)
+  [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"
+}

@@ -144,6 +144,7 @@
 (require 'flycheck)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (global-flycheck-mode)
+(menu-bar-mode 0)
 (global-set-key [f7] 'paredit-mode)
 ;;rainbow delimiters everywhere
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
