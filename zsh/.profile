@@ -52,7 +52,7 @@ function e()
 alias vi="e"
 alias vim="e"
 
-source /usr/local/miniconda3/bin/activate spotify
+source $HOME/miniconda3/bin/activate spotify
 function burk {
   host=$(burklee | fzf)
   [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"

@@ -9,7 +9,6 @@
                       helm-projectile
                       helm-ag
                       company
-                      evil
                       rainbow-delimiters
                       elpy
                       cider
@@ -71,15 +70,6 @@
 ;; Ace Window
 ;;;;
 (global-set-key (kbd "C-x o") 'ace-window)
-
-;;;;
-;; Evil
-;;;;
-(setq evil-toggle-key "<f6>") ;;set this before loading evil
-(require 'evil)
-(evil-mode)
-;;disable evil for cider repl
-(evil-set-initial-state 'cider-repl-mode 'emacs)
 
 ;;;;
 ;; Racket
