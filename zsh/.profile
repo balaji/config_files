@@ -38,7 +38,7 @@ case `uname` in
         export LS_COLORS='ow=01;36;40'
         export DOTNET_ROOT=$HOME/dotnet 
         export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin
-	      setxkbmap -option ctrl:nocaps
+	setxkbmap -option ctrl:nocaps
         ;;
 esac
 
