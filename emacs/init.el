@@ -156,7 +156,6 @@
 ;; editor stuff.
 (setq vc-follow-symlinks t)
 (load-theme 'zenburn t)
-(global-display-line-numbers-mode)
 
 ;;;;
 ;; Haskell

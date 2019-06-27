@@ -39,6 +39,7 @@ case `uname` in
         export DOTNET_ROOT=$HOME/dotnet 
         export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin
 	setxkbmap -option ctrl:nocaps
+	setxkbmap -option srvrkeys:none
         ;;
 esac
 
