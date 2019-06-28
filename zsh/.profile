@@ -24,7 +24,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$PATH"
 
 case `uname` in
     Darwin)
