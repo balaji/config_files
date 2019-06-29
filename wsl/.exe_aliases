@@ -1,4 +1,0 @@
-if [ "$(uname 2> /dev/null)" == "Linux" ]; then
-    alias docker-machine=docker-machine.exe
-    alias docker-compose=docker-compose.exe
-fi

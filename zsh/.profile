@@ -1,3 +1,4 @@
+alias emacs='emacs -nw'
 alias g='git'
 alias gpl='git pull'
 alias gpu='git push'
@@ -50,8 +51,6 @@ function e()
   # -a= fires a new emacs server if none is running
   emacsclient --tty $*
 }
-alias vi="e"
-alias vim="e"
 
 source $HOME/miniconda3/bin/activate spotify
 function burk {

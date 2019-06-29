@@ -156,6 +156,8 @@
 ;; editor stuff.
 (setq vc-follow-symlinks t)
 (load-theme 'zenburn t)
+(global-linum-mode t)
+(setq linum-format "%4d \u2502 ")
 
 ;;;;
 ;; Haskell
