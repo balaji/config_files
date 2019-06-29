@@ -23,6 +23,7 @@
                       haskell-mode
                       intero
                       hindent
+		      powerline
                       zenburn-theme
 		      ))
 
@@ -37,6 +38,8 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+(require 'powerline)
+(powerline-center-theme)
 ;;;;
 ;; Helm
 ;;;;
@@ -190,7 +193,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (go-mode go zenburn-theme starter-kit-lisp rainbow-delimiters racket-mode markdown-mode helm-projectile helm-ag fsharp-mode evil elpy elein clojure-mode-extra-font-locking cider better-defaults ag ace-window)))
+    (powerline go-mode go zenburn-theme starter-kit-lisp rainbow-delimiters racket-mode markdown-mode helm-projectile helm-ag fsharp-mode evil elpy elein clojure-mode-extra-font-locking cider better-defaults ag ace-window)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map

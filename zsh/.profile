@@ -1,4 +1,4 @@
-alias emacs='emacs -nw'
+alias emacs='emacsclient --tty'
 alias g='git'
 alias gpl='git pull'
 alias gpu='git push'
@@ -45,15 +45,11 @@ case `uname` in
 esac
 
 export ALTERNATE_EDITOR=""
-function e()
-{
-  # -c creates a new frame
-  # -a= fires a new emacs server if none is running
-  emacsclient --tty $*
-}
 
 source $HOME/miniconda3/bin/activate spotify
 function burk {
   host=$(burklee | fzf)
   [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"
 }
+
+export SUDO_EDITOR='emacsclient'

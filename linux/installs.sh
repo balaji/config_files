@@ -25,7 +25,7 @@ kubectl google-cloud-sdk-cbt software-properties-common docker-ce golang \
 ttf-mscorefonts-installer fonts-inconsolata chromium-browser fonts-open-sans \
 erlang elixir cargo ocaml mit-scheme xserver-xorg-input-synaptics-hwe-18.04 \
 fonts-hack compton feh blueman autoconf ruby-dev nodejs openjdk-11-jdk openjdk-8-jdk \
-'ubuntu-wallpapers-*' redshift-gtk
+'ubuntu-wallpapers-*' redshift-gtk racket
 
 sudo snap install code --classic
 

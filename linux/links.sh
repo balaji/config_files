@@ -4,6 +4,7 @@ cd $HOME
 
 mkdir .emacs.d
 mkdir .config/i3
+mkdir .config/polybar
 mkdir github
 mkdir bin
 
@@ -20,8 +21,9 @@ ln -s ~/github/config_files/emacs/init.el init.el
 cd $HOME/.config/i3
 ln -s ~/github/config_files/i3/config config
 
-cd $HOME/.config/compton
-ln -s ~/github/config_files/compton/compton.conf compton.conf
+cd $HOME/.config/polybar
+ln -s ~/github/config_files/i3/polybar-config config
+ln -s ~/github/config_files/i3/launch.sh launch.sh
 
 cd $HOME
 ln -s ~/github/config_files/i3/.i3status.conf .i3status.conf
@@ -44,3 +46,5 @@ cd $HOME/github/zsh-git-prompt
 stack setup && stack build && stack install
 
 cd $HOME
+git config --global core.editor emacs
+git config --global user.name "Balaji Damodaran"
