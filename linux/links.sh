@@ -37,6 +37,7 @@ ln -s ~/github/config_files/vim/.vimrc .vimrc
 cd $HOME/bin
 ln -s ~/github/config_files/i3/monitors.sh monitors
 ln -s ~/github/config_files/i3/single-monitor.sh single-monitor
+ln -s ~/github/config_files/i3/spotify_status.py spotify_status.py
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
