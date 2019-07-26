@@ -17,8 +17,8 @@ URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
 
-URxvt*font: xft:Inconsolata:size=11
-URxvt*boldFont: xft:Inconsolata:bold:size=11
+URxvt*font: xft:Hack:size=11
+URxvt*boldFont: xft:Hack:bold:size=11
 URxvt*letterSpace: -1
 
 URxvt*termName: rxvt-256color
