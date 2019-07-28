@@ -6,21 +6,17 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-URxvt.depth:                32
-URxvt.geometry:             90x30
-URxvt.loginShell:           true
-URxvt.internalBorder:       3
-URxvt.lineSpace:            0
-
+URxvt.depth: 32
+URxvt.geometry: 90x30
+URxvt.loginShell: true
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
 URxvt*shading: 15
-
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
-
 URxvt*font: xft:Hack:size=11
 URxvt*boldFont: xft:Hack:bold:size=11
 URxvt*letterSpace: -1
-
 URxvt*termName: rxvt-256color
 URxvt*xftAntialias: true
 URxvt*background: #3f3f3f
@@ -44,3 +40,5 @@ URxvt*color12: #8cd0d3
 URxvt*color13: #dc8cc3
 URxvt*color14: #93e0e3
 URxvt*color15: #ffffff
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard

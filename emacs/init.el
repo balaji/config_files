@@ -61,8 +61,17 @@
 ;; Ace Window
 ;;;;
 (global-set-key (kbd "C-x o") 'ace-window)
-(when (display-graphic-p)
-  (load-theme 'solarized-dark t))
+
+;; loads theme only for GUI and default theme for TTY
+(defun my-load-theme (theme)
+  (add-hook 'after-make-frame-functions
+	    `(lambda (frame)
+	       (select-frame frame)
+	       (if (display-graphic-p frame)
+		   (load-theme ',theme t)
+		 (disable-theme ',theme)))))
+
+(my-load-theme 'solarized-dark)
 
 ;;;;
 ;; Lisp misc
