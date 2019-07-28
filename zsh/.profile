@@ -11,7 +11,8 @@ alias yd="youtube-dl"
 alias m='mvn'
 alias mcp='mvn clean package'
 alias mci='mvn clean install'
-alias ec='emacsclient'
+alias ect='emacsclient -t'
+alias ecv='emacsclient -c'
 
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
