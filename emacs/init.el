@@ -92,7 +92,7 @@
 ;; editor stuff.
 (setq vc-follow-symlinks t)
 (global-linum-mode t)
-(setq linum-format "%4d ")
+(setq linum-format "%4d \u2502 ")
 (setq inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
 (global-set-key (kbd "C-c l") 'org-store-link)
