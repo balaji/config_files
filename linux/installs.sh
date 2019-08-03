@@ -20,7 +20,7 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
 sudo apt update
 
 sudo apt install haskell-stack zsh emacs i3 git volumeicon-alsa \
-maven apt-transport-https ca-certificates google-cloud-sdk \
+maven apt-transport-https ca-certificates google-cloud-sdk vlc \
 kubectl google-cloud-sdk-cbt software-properties-common docker-ce golang \
 ttf-mscorefonts-installer fonts-inconsolata chromium-browser fonts-open-sans \
 erlang elixir cargo ocaml mit-scheme xbacklight libssl-dev pm-utils openssl1.0 \
@@ -54,4 +54,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/i
 cd $HOME/Downloads
 curl -O "https://download.visualstudio.microsoft.com/download/pr/c624c5d6-0e9c-4dd9-9506-6b197ef44dc8/ad61b332f3abcc7dec3a49434e4766e1/dotnet-sdk-3.0.100-preview7-012821-linux-x64.tar.gz"
 mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-3.0.100-preview7-012821-linux-x64.tar.gz -C $HOME/dotnet
-

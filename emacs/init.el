@@ -15,6 +15,7 @@
                       ace-window
                       flycheck
 		      magit
+		      solarized-theme
 		      ))
 
 (add-to-list 'package-archives
