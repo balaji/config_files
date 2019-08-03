@@ -39,7 +39,7 @@ case `uname` in
         ;;
 esac
 
-source $HOME/miniconda3/bin/activate spotify
+source /usr/local/miniconda3/bin/activate spotify
 function burk {
   host=$(burklee | fzf)
   [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"
@@ -49,3 +49,7 @@ export SUDO_EDITOR='emacsclient -t'
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c -a emacs"
+
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

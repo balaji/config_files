@@ -1,12 +1,12 @@
 #!/bin/sh
 
 cd $HOME
-
+rm .profile
 mkdir .emacs.d
 mkdir .config/i3
-mkdir .config/polybar
 mkdir github
 mkdir bin
+mkdir -p .config/systemd/user
 
 git clone https://github.com/balaji/config_files ~/github/config_files
 
@@ -20,10 +20,6 @@ ln -s ~/github/config_files/emacs/init.el init.el
 
 cd $HOME/.config/i3
 ln -s ~/github/config_files/i3/config config
-
-cd $HOME/.config/polybar
-ln -s ~/github/config_files/i3/polybar-config config
-ln -s ~/github/config_files/i3/launch.sh launch.sh
 
 cd $HOME
 ln -s ~/github/config_files/i3/.i3status.conf .i3status.conf
@@ -39,9 +35,22 @@ ln -s ~/github/config_files/i3/monitors.sh monitors
 ln -s ~/github/config_files/i3/single-monitor.sh single-monitor
 ln -s ~/github/config_files/i3/spotify_status.py spotify_status.py
 
+cd $HOME/.config/systemd/user
+ln -s ~/github/config_files/linux/startup-services/emacs.service emacs.service
+ln -s ~/github/config_files/linux/startup-services/urxvtd.service urxvtd.service
+
+systemctl --user enable emacs.service
+systemctl --user enable urxvtd.serivce
+
+systemctl --user start emacs.service
+systemctl --user start urxvtd.service
+
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
 git clone https://github.com/balaji/zsh-git-prompt.git ~/github/zsh-git-prompt
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 
 cd $HOME/github/zsh-git-prompt
 stack setup && stack build && stack install
@@ -49,3 +58,8 @@ stack setup && stack build && stack install
 cd $HOME
 git config --global core.editor 'emacsclient -t'
 git config --global user.name "Balaji Damodaran"
+
+sudo cp ~/github/config_files/linux/devices/20-intel.conf /usr/share/X11/xorg.conf.d/
+
+source $HOME/.profile
+brew install fzf
