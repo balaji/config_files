@@ -9,12 +9,11 @@ Xft.rgba: rgb
 URxvt.depth: 32
 URxvt.geometry: 90x30
 URxvt.loginShell: true
-URxvt.internalBorder: 3
 URxvt.lineSpace: 0
 URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
-URxvt*font: xft:Hack:size=10
+URxvt*font: xft:Hack:size=10,Symbola
 URxvt*boldFont: xft:Hack:bold:size=10
 URxvt*letterSpace: -1
 URxvt*termName: rxvt-256color
@@ -88,3 +87,4 @@ URxvt*color15:    #E6E6E6
 !URxvt*color13: #de99f0
 !URxvt*color14: #00ca9a
 !URxvt*color15: #e0e0e0
+Xcursor.theme: DMZ-White

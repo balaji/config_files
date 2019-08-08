@@ -1,7 +1,7 @@
 #!/bin/sh
 
-xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output DP2 --auto --right-of eDP1
 
-xrandr --output HDMI-1 --rotate left
+xrandr --output DP2 --rotate left
 
-xrandr --output HDMI-1 --scale 1.5x1.5
+xrandr --output DP2 --scale 1.5x1.5

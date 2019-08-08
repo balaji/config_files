@@ -1,3 +1,4 @@
 #!/bin/sh
 
-xrandr --output HDMI-1 --off
+xrandr --output HDMI1 --off
+xrandr --output DP2 --off
