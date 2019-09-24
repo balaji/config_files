@@ -29,11 +29,9 @@ case `uname` in
         ;;
     Linux)
         export TERM=xterm-256color
-        export FrameworkPathOverride=/usr/lib/mono/4.5/
         alias ls="ls --color=auto"
         export LS_COLORS='ow=01;36;40'
-        export DOTNET_ROOT=$HOME/dotnet 
-        export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin:$HOME/swift-lang/current/usr/bin
+        export PATH=$HOME/.local/bin:$HOME/.jenv/bin:$PATH
 	setxkbmap -option ctrl:nocaps
 	setxkbmap -option srvrkeys:none
         ;;

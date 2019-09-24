@@ -13,8 +13,8 @@ URxvt.lineSpace: 0
 URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
-URxvt*font: xft:Hack:size=10,Symbola
-URxvt*boldFont: xft:Hack:bold:size=10
+URxvt*font: xft:Cascadia Code:size=12,Symbola
+URxvt*boldFont: xft:Cascadia Code:bold:size=12
 URxvt*letterSpace: -1
 URxvt*termName: rxvt-256color
 URxvt*xftAntialias: true
