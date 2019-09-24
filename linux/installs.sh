@@ -22,10 +22,10 @@ sudo apt update
 sudo apt install haskell-stack zsh emacs i3 git volumeicon-alsa \
 maven apt-transport-https ca-certificates google-cloud-sdk vlc \
 kubectl google-cloud-sdk-cbt software-properties-common docker-ce golang \
-ttf-mscorefonts-installer fonts-inconsolata chromium-browser fonts-open-sans \
-erlang elixir cargo ocaml mit-scheme xbacklight libssl-dev pm-utils openssl1.0 \
-fonts-hack compton feh blueman autoconf ruby-dev nodejs openjdk-11-jdk openjdk-8-jdk \
-'ubuntu-wallpapers-*' redshift-gtk racket tree rxvt-unicode tmux py3status \
+ttf-mscorefonts-installer chromium-browser fonts-open-sans \
+cargo ocaml mit-scheme xbacklight libssl-dev pm-utils openssl1.0 \
+fonts-hack compton feh blueman autoconf openjdk-11-jdk openjdk-8-jdk \
+'ubuntu-wallpapers-*' redshift-gtk racket tree tmux py3status \
 libx11-dev libxi-dev libxcb-util-dev libx11-xcb-dev libxcb-randr0-dev asciidoc rofi \
 fonts-hack-ttf fonts-font-awesome
 

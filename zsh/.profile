@@ -32,8 +32,7 @@ case `uname` in
         export FrameworkPathOverride=/usr/lib/mono/4.5/
         alias ls="ls --color=auto"
         export LS_COLORS='ow=01;36;40'
-        export DOTNET_ROOT=$HOME/dotnet 
-        export PATH=$PATH:$HOME/dotnet:$HOME/.local/bin:$HOME/swift-lang/current/usr/bin
+        export PATH=$PATH:$HOME/.local/bin:$HOME/swift-lang/current/usr/bin:/snap/bin:$HOME/dotnet
 	setxkbmap -option ctrl:nocaps
 	setxkbmap -option srvrkeys:none
         ;;
@@ -53,3 +52,4 @@ export VISUAL="emacsclient -c -a emacs"
 test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+if [ -e /home/balaji/.nix-profile/etc/profile.d/nix.sh ]; then . /home/balaji/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
