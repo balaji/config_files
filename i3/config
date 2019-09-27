@@ -78,12 +78,12 @@ bindsym $mod+f fullscreen toggle
 #BALAJI: was 'w'
 bindsym $mod+t layout tabbed 
 #BALAJI: was 's' 
-#bindsym $mod+s layout stacking
+bindsym $mod+k layout stacking
 #BALAJI: was 'a' 
 bindsym $mod+p focus parent
 #BALAJI: was 'd' 
 bindsym $mod+c focus child
-
+bindsym $mod+r mode "resize"
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -151,10 +151,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym a resize shrink width 10 px or 10 ppt
+        bindsym w resize grow height 10 px or 10 ppt
+        bindsym s resize shrink height 10 px or 10 ppt
+        bindsym d resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -172,17 +172,15 @@ bar {
   status_command py3status
   position top
   colors {
-    separator #928374
-    background #282828
-    statusline #ebdbb2
-    focused_workspace #689d6a #689d6a #282828 #ffffff
-    active_workspace #1d2021 #1d2021 #928374 #ffffff
-    inactive_workspace #32302f #32302f #928374 #888888
-    urgent_workspace #cc241d #cc241d #ebdbb2 #ffffff
+    separator #666666
+    background #000000
+    statusline #ffffff
+    focused_workspace #4c7899 #285577 #ffffff #282828
+    active_workspace #333333 #5f676a #ffffff #928374
+    inactive_workspace #333333 #222222 #888888 #928374
+    urgent_workspace #2f343a #900000 #ffffff #ebdbb2
   }
 }
-
-bindsym $mod+r mode "resize"
 
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/volumeicon
@@ -190,9 +188,13 @@ exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
 exec --no-startup-id xedgewarp -b
 exec --no-startup-id redshift-gtk
+exec --no-startup-id dropbox start
+exec --no-startup-id ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-client.focused #689d6a #689d6a #282828 #282828
-client.focused_inactive #1d2021 #1d2021 #928374 #282828
-client.unfocused #32302f #32302f #928374 #282828
-client.urgent #cc241d #cc241d #ebdbb2 #282828
+client.focused #4c7899 #285577 #ffffff #2e9ef4
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused #333333 #222222 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
+
+for_window [class="^.*"] border normal

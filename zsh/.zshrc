@@ -3,7 +3,7 @@ HISTSIZE=5000
 SAVEHIST=5000
 setopt extendedglob
 bindkey -e
-zstyle :compinstall filename '/Users/balaji/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
 compinit
 
@@ -12,7 +12,7 @@ source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 PROMPT='%F{cyan}%n%f@%F{green}%m%f %F{yellow}%~%f %B$(git_super_status)%b 
 $ '
 GIT_PROMPT_EXECUTABLE="haskell"
-if [ "$TMUX" = "" ]; then tmux new -A -s main; fi
+#if [ "$TMUX" = "" ]; then tmux new -A -s main; fi
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 source $HOME/.zprofile
 

@@ -26,18 +26,18 @@ export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$PA
 case `uname` in
     Darwin)
         alias ls="ls -G"
-	source /usr/local/Caskroom/miniconda/base/bin/activate spotify
+        source /usr/local/Caskroom/miniconda/base/bin/activate spotify
         ;;
     Linux)
         export TERM=xterm-256color
         alias ls="ls --color=auto"
         export LS_COLORS='ow=01;36;40'
-	setxkbmap -option ctrl:nocaps
-	setxkbmap -option srvrkeys:none
-	test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-	test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-	source /usr/local/miniconda3/bin/activate spotify
+	      setxkbmap -option ctrl:nocaps
+        setxkbmap -option srvrkeys:none
+        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        source /usr/local/miniconda3/bin/activate spotify
         ;;
 esac
 

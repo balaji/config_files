@@ -9,17 +9,17 @@ Xft.rgba: rgb
 URxvt.depth: 32
 URxvt.geometry: 90x30
 URxvt.loginShell: true
-URxvt.lineSpace: 0
+URxvt.lineSpace: 4
+URxvt.letterSpace: -1
 URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
 URxvt*font: xft:Cascadia Code:size=12,Symbola
 URxvt*boldFont: xft:Cascadia Code:bold:size=12
-URxvt*letterSpace: -1
 URxvt*termName: rxvt-256color
 URxvt*xftAntialias: true
-URxvt*colorUL: #366060
-URxvt*underlineColor: #dfaf8f
+!URxvt*colorUL: #366060
+!URxvt*underlineColor: #dfaf8f
 
 !Tango
 URxvt*cursorColor: #aaaaaa
@@ -87,4 +87,4 @@ URxvt*color15:    #E6E6E6
 !URxvt*color13: #de99f0
 !URxvt*color14: #00ca9a
 !URxvt*color15: #e0e0e0
-Xcursor.theme: DMZ-White
+!Xcursor.theme: breeze_cursors
