@@ -14,9 +14,9 @@ URxvt.letterSpace: -1
 URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
-URxvt.font: xft:Cascadia Code:pixelsize=21,xft:Symbola
-URxvt*boldFont: xft:Cascadia Code:bold:pixelsize=21
-URxvt*termName: rxvt-unicode-256color
+URxvt*font: xft:Cascadia Code:size=12,Symbola
+URxvt*boldFont: xft:Cascadia Code:bold:size=12
+URxvt*termName: rxvt-256color
 URxvt*xftAntialias: true
 !URxvt*colorUL: #366060
 !URxvt*underlineColor: #dfaf8f
