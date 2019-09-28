@@ -1,45 +1,15 @@
 ;;;
 ;; Package Manager
 ;;;;
-(require 'package)
-(defvar my-packages '(better-defaults
-                      projectile
-                      ag
-                      helm
-                      helm-projectile
-                      helm-ag
-                      company
-                      rainbow-delimiters
-                      paredit
-                      markdown-mode
-                      ace-window
-                      flycheck
-		      magit
-		      cider
-		      monokai-theme
-		      ))
-
-(add-to-list 'package-archives
-             '("elpa" . "https://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-	      '("melpa" . "https://melpa.org/packages/") t)
-
-(package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(dolist (package my-packages)
-  (unless (package-installed-p package)
-    (package-install package)))
-
 
 (require 'cc-mode)
 (condition-case nil
     (require 'use-package)
   (file-error
    (require 'package)
+ 
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
    (package-initialize)
    (package-refresh-contents)
@@ -48,20 +18,19 @@
 
 (use-package projectile :ensure t)
 (use-package yasnippet :ensure t)
-(use-package lsp-mode :ensure t)
-(use-package hydra :ensure t)
-(use-package company-lsp :ensure t)
-(use-package lsp-ui :ensure t)
-(use-package lsp-java :ensure t :after lsp
-  :config (add-hook 'java-mode-hook 'lsp))
-
-(use-package dap-mode
-  :ensure t :after lsp-mode
-  :config
-  (dap-mode t)
-  (dap-ui-mode t))
-
-(use-package dap-java :after (lsp-java))
+(use-package better-defaults :ensure t)
+(use-package ag :ensure t)
+(use-package helm :ensure t)
+(use-package helm-projectile :ensure t)
+(use-package helm-ag :ensure t)
+(use-package company :ensure t)
+(use-package rainbow-delimiters :ensure t)
+(use-package paredit :ensure t)
+(use-package markdown-mode :ensure t)
+(use-package ace-window :ensure t)
+(use-package flycheck :ensure t)
+(use-package magit :ensure t)
+(use-package monokai-theme :ensure t)
 
 ;;;;
 ;; Helm
@@ -96,17 +65,6 @@
 ;; Ace Window
 ;;;;
 (global-set-key (kbd "C-x o") 'ace-window)
-
-;; loads theme only for GUI and default theme for TTY
-(defun my-load-theme (theme)
-  (add-hook 'after-make-frame-functions
-	    `(lambda (frame)
-	       (select-frame frame)
-	       (if (display-graphic-p frame)
-		   (load-theme ',theme t)
-		 (disable-theme ',theme)))))
-
-;;(my-load-theme 'solarized-dark)
 
 ;;;;
 ;; Lisp misc
@@ -157,9 +115,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default)))
  '(package-selected-packages
    (quote
-    (dap-mode lsp-ui company-lsp use-package yasnippet lsp-javacomp treemacs lsp-java monokai-theme cider magit slime solarized-theme rainbow-delimiters paredit markdown-mode helm-projectile helm-ag flycheck company better-defaults ag ace-window))))
+    (use-package yasnippet monokai-theme magit rainbow-delimiters paredit markdown-mode helm-projectile helm-ag flycheck company better-defaults ag ace-window))))
+

@@ -60,7 +60,7 @@ cd $HOME
 git config --global core.editor 'emacsclient -t'
 git config --global user.name "Balaji Damodaran"
 git config --global --add hub.host ghe.spotify.net
-git config --glboal user.email "balaji@spotify.com"
+git config --global user.email "balaji@spotify.com"
 
 sudo cp ~/github/config_files/linux/devices/20-intel.conf /usr/share/X11/xorg.conf.d/
 

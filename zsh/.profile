@@ -21,7 +21,7 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
-export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$PATH"
 
 case `uname` in
     Darwin)
@@ -36,8 +36,8 @@ case `uname` in
         setxkbmap -option srvrkeys:none
         test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
         test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-        eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-        source /usr/local/miniconda3/bin/activate spotify
+        #eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        #source /usr/local/miniconda3/bin/activate spotify
         ;;
 esac
 
