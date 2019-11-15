@@ -29,6 +29,8 @@ case `uname` in
         export TERM=xterm-256color
         alias ls="ls --color=auto"
         export LS_COLORS='ow=01;36;40'
+        export DOTNET_ROOT=$HOME/dotnet
+        export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin:$DOTNET_ROOT
         setxkbmap -option ctrl:nocaps
         setxkbmap -option srvrkeys:none
         ;;

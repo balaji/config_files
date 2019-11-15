@@ -14,8 +14,8 @@ URxvt.letterSpace: -1
 URxvt*shading: 15
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
-URxvt*font: xft:Cascadia Code:size=10,Symbola
-URxvt*boldFont: xft:Cascadia Code:bold:size=10
+URxvt*font: xft:Delugia Nerd Font:size=11,Symbola
+URxvt*boldFont: xft:Delugia Nerd Font:bold:size=11
 URxvt*termName: rxvt-256color
 URxvt*xftAntialias: true
 !URxvt*colorUL: #366060

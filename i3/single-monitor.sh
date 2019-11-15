@@ -1,4 +1,4 @@
 #!/bin/sh
 
-xrandr --output HDMI1 --off
-xrandr --output DP2 --off
+OUTPUT=`xrandr |grep -w 'connected' | grep -v 'eDP1' | awk '/connected/{print $1}'`
+xrandr --output $OUTPUT --off

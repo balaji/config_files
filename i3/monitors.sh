@@ -1,7 +1,9 @@
 #!/bin/sh
 
-xrandr --output HDMI1 --auto --above eDP1
+OUTPUT=`xrandr |grep -w 'connected' | grep -v 'eDP1' | awk '/connected/{print $1}'`
 
-#xrandr --output HDMI1 --rotate left
+#xrandr --output ${OUTPUT} --scale 1.5x1.5
+xrandr --output ${OUTPUT} --auto --above eDP1
 
-#xrandr --output HDMI1 --scale 1.5x1.5
+#xrandr --output ${OUTPUT} --rotate left
+
