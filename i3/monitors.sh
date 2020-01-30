@@ -7,7 +7,7 @@ if [ -z "$1" ]
 fi
 
 external_monitor () {
-    OUTPUT=`xrandr |grep -w 'connected' | grep -v 'eDP1' | awk '/connected/{print $1}'`
+    OUTPUT=`xrandr | grep -w 'connected' | grep -v 'eDP1' | awk '/connected/{print $1}'`
 
     if [ -z $OUTPUT ]
     then
@@ -30,4 +30,3 @@ then
 else
     echo "usage: monitors on (or) off"
 fi
-
