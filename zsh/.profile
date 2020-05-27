@@ -17,7 +17,8 @@ alias ecv='emacsclient -c'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$HOME/bin:$HOME/.local/bin:$PATH"
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH"
 eval "$(jenv init -)"
 
 case `uname` in
