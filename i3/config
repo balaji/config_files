@@ -191,7 +191,7 @@ exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
 exec --no-startup-id xedgewarp -b
 exec --no-startup-id redshift-gtk
-exec --no-startup-id dropbox start
+exec --no-startup-id nextcloud --background
 exec --no-startup-id compton -b
 exec --no-startup-id ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
