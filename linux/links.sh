@@ -40,6 +40,10 @@ cd $HOME/.config/systemd/user
 ln -s ~/github/config_files/linux/startup-services/emacs.service emacs.service
 ln -s ~/github/config_files/linux/startup-services/urxvtd.service urxvtd.service
 
+mkdir $HOME/.config/dunst
+cd $HOME/.config/dunst
+ln -s ~/github/config_files/i3/dunstrc dunstrc
+
 systemctl --user enable emacs.service
 systemctl --user enable urxvtd.service
 

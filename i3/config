@@ -209,3 +209,5 @@ assign [class="pycharm"] $ws2
 assign [class="webstorm"] $ws2
 assign [class="Code"] $ws2
 assign [class="Firefox"] $ws3
+assign [class="spotify"] $ws8
+

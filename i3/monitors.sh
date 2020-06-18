@@ -16,17 +16,22 @@ external_monitor () {
     fi
 }
 
-if [ $1 = 'on' ]
+if [ $1 = 'extend' ]
 then
     external_monitor
-    xrandr --output ${OUTPUT} --scale 1x1
     xrandr --output ${OUTPUT} --auto --above eDP1
-    #xrandr --output ${OUTPUT} --rotate left
+    xrandr --output eDP1 --auto --below $OUTPUT    
     exit 0
-elif [ $1 = 'off' ]
+elif [ $1 = 'bottom' ]
 then
-     external_monitor
-     xrandr --output $OUTPUT --off
+    external_monitor
+    xrandr --output $OUTPUT --off
+    xrandr --output eDP1 --auto --below $OUTPUT
+elif [ $1 = 'top' ]
+then
+    external_monitor
+    xrandr --output $OUTPUT --auto --above eDP1
+    xrandr --output eDP1 --off
 else
     echo "usage: monitors on (or) off"
 fi
