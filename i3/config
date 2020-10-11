@@ -27,7 +27,7 @@ floating_modifier $mod
 #workspace_layout tabbed
 
 # start a terminal
-bindsym $mod+Return exec urxvtc
+bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -189,12 +189,10 @@ exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
-exec --no-startup-id xedgewarp -b
+#exec --no-startup-id xedgewarp -b
 exec --no-startup-id redshift-gtk
 exec --no-startup-id nextcloud --background
-exec --no-startup-id compton -b
 exec --no-startup-id ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 client.focused #4c7899 #285577 #ffffff #2e9ef4
 client.focused_inactive #333333 #5f676a #ffffff #484e50
@@ -210,4 +208,3 @@ assign [class="webstorm"] $ws2
 assign [class="Code"] $ws2
 assign [class="Firefox"] $ws3
 assign [class="spotify"] $ws8
-

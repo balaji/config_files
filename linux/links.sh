@@ -32,8 +32,7 @@ ln -s ~/github/config_files/linux/.fonts.conf .fonts.conf
 ln -s ~/github/config_files/vim/.vimrc .vimrc
 
 cd $HOME/bin
-ln -s ~/github/config_files/i3/monitors.sh monitors
-ln -s ~/github/config_files/i3/single-monitor.sh single-monitor
+ln -s ~/github/config_files/i3/monitors.sh mrs
 ln -s ~/github/config_files/i3/spotify_status.py spotify_status.py
 
 cd $HOME/.config/systemd/user
@@ -66,8 +65,4 @@ git config --global user.name "Balaji Damodaran"
 git config --global --add hub.host ghe.spotify.net
 git config --global user.email "balaji@spotify.com"
 
-sudo cp ~/github/config_files/linux/devices/20-intel.conf /usr/share/X11/xorg.conf.d/
-
 source $HOME/.zshrc
-brew install fzf hub
-nvm install 10
