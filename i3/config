@@ -135,7 +135,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exit
+bindsym $mod+Shift+e exec --no-startup-id qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
 
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
@@ -169,14 +169,14 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
-
 client.focused #4c7899 #285577 #ffffff #2e9ef4
 client.focused_inactive #333333 #5f676a #ffffff #484e50
 client.unfocused #333333 #222222 #888888 #292d2e
 client.urgent #2f343a #900000 #ffffff #900000
 
-for_window [class="^.*"] border normal
+#for_window [class="^.*"] border normal
+for_window [class="^.*"] border pixel 1
+new_window 1pixel
 
 assign [class="URxvt"] $ws1
 assign [class="idea"] $ws2
@@ -198,3 +198,9 @@ for_window [class="Plasmoidviewer"] floating enable; border none
 for_window [class="(?i)*nextcloud*"] floating disable
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
 no_focus [class="plasmashell" window_type="notification"]
+
+exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
+
+bar {
+        mode hide
+}

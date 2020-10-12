@@ -48,7 +48,7 @@ EOF
 dnf install -y zsh tmux cabextract google-chrome-stable \
 cascadia-fonts-all fontawesome-fonts liberation-fonts \
 docker-ce docker-ce-cli containerd.io \
-i3 volumeicon blueman xbacklight feh rofi py3status rxvt-unicode \
+i3 xbacklight feh \
 code emacs vim-enhanced \
 java-11-amazon-corretto-devel golang erlang \
 maven conda google-cloud-sdk cargo stack \
