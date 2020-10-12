@@ -200,7 +200,3 @@ for_window [class="plasmashell" window_type="notification"] floating enable, bor
 no_focus [class="plasmashell" window_type="notification"]
 
 exec --no-startup-id feh --randomize --bg-scale /usr/share/backgrounds/*
-
-bar {
-        mode hide
-}
