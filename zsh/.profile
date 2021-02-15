@@ -18,7 +18,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$HOME/bin:$HOME/.local/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$HOME/bin:$HOME/.local/bin:$PATH"
 eval "$(jenv init -)"
 
 case `uname` in
@@ -35,11 +35,6 @@ case `uname` in
         setxkbmap -option srvrkeys:none
         ;;
 esac
-
-function burk {
-  host=$(burklee | fzf)
-  [[ ! -z "$host" ]] && ssh -A "$host.spotify.net"
-}
 
 export SUDO_EDITOR='emacsclient -t'
 export ALTERNATE_EDITOR=""
