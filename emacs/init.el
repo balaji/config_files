@@ -8,6 +8,14 @@
 
 (require 'use-package)
 
+(cond
+ ((string-equal system-type "gnu/linux")
+  (use-package vterm :ensure t)))
+
+(use-package slime :ensure t
+  :init
+  (setq inferior-lisp-program "sbcl"))
+
 (use-package racket-mode :ensure t)
 
 (use-package projectile
