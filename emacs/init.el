@@ -79,8 +79,6 @@
 
 (use-package magit :ensure t)
 
-(use-package monokai-theme :ensure t)
-
 ;;;;
 ;; Editor Stuff
 ;;;;
@@ -98,7 +96,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Cascadia Code" :foundry "SRC" :slant normal :weight normal :height 100 :width normal)))))
+ '(default ((t (:family "Menlo" :foundry "SRC" :slant normal :weight normal :height 115 :width normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

@@ -14,17 +14,15 @@ alias ect='emacsclient -t'
 alias ecv='emacsclient -c'
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
 
-
-export ANDROID_HOME="$HOME/Android/Sdk"
-export PATH="/usr/local/sbin:$HOME/go/bin:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.jenv/bin:$HOME/bin:$HOME/.local/bin:$PATH"
-eval "$(jenv init -)"
 
 case `uname` in
     Darwin)
         alias ls="ls -G"
-        source /usr/local/Caskroom/miniconda/base/bin/activate spotify
+        source /usr/local/Caskroom/miniconda/base/bin/activate base
+	[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+	eval "$(jenv init -)"
+#	export PATH=/usr/local/sbin:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH
         ;;
     Linux)
         export TERM=xterm-256color
