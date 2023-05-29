@@ -8,22 +8,23 @@
 
 (require 'use-package)
 
-(cond
- ((string-equal system-type "gnu/linux")
-  (use-package vterm :ensure t)))
-
 (use-package slime :ensure t
-  :init
-  (setq inferior-lisp-program "sbcl"))
+  :init (setq inferior-lisp-program "c:\\users\\balaji\\scoop\\apps\\sbcl\\current\\sbcl.exe"))
 
-(use-package racket-mode :ensure t)
+(use-package auto-complete
+  :ensure t
+  :config (ac-config-default))
+
+(use-package ac-slime
+  :ensure t
+  :hook ((slime-mode slime-repl-mode) . set-up-slime-ac)
+  :after auto-complete
+  :config (add-to-list 'ac-modes 'slime-repl-mode))
 
 (use-package projectile
   :ensure t
-  :init
-  (setq projectile-completion-system 'helm)
-  :config
-  (projectile-mode t))
+  :init (setq projectile-completion-system 'helm)
+  :config (projectile-mode t))
 
 (use-package better-defaults :ensure t)
 
@@ -38,12 +39,8 @@
          ("C-x C-f" . helm-find-files)
          ("C-c o" . helm-occur)
          ("C-c r b" . helm-filtered-bookmarks))
-  :init
-  (setq helm-mode-fuzzy-match t
-        helm-completion-in-region-fuzzy-match t)
   :config
-  (helm-mode 1)
-  (helm-autoresize-mode 1))
+  (helm-mode 1))
 
 (use-package helm-projectile
   :ensure t
@@ -53,18 +50,14 @@
 
 (use-package helm-ag :ensure t)
 
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode))
-
 (use-package rainbow-delimiters
   :ensure t
-  :hook ((prog-mode racket-repl-mode) . rainbow-delimiters-mode))
+  :hook ((prog-mode) . rainbow-delimiters-mode))
 
 (use-package paredit
   :ensure t
   :bind (([f7] . paredit-mode))
-  :hook ((emacs-lisp-mode racket-mode racket-repl-mode) . paredit-mode))
+  :hook ((emacs-lisp-mode slime-mode slime-repl-mode) . paredit-mode))
 
 (use-package ace-window
   :ensure t
@@ -78,6 +71,9 @@
   (global-flycheck-mode 1))
 
 (use-package magit :ensure t)
+
+(use-package monokai-theme :ensure t
+  :config (load-theme 'monokai t))
 
 ;;;;
 ;; Editor Stuff
@@ -96,7 +92,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Menlo" :foundry "SRC" :slant normal :weight normal :height 115 :width normal)))))
+ '(default ((t (:family "Consolas" :foundry "SRC" :slant normal :weight normal :height 110 :width normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
