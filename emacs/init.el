@@ -1,15 +1,22 @@
-;;;
-;; Package Manager
-;;;;
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (require 'use-package)
+(setq use-package-always-ensure t)
 
-(use-package slime :ensure t
-  :init (setq inferior-lisp-program "c:\\users\\balaji\\scoop\\apps\\sbcl\\current\\sbcl.exe"))
+(use-package slime
+  :ensure t
+  :config (setq inferior-lisp-program "sbcl"))
+
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1))
 
 (use-package auto-complete
   :ensure t
@@ -21,12 +28,15 @@
   :after auto-complete
   :config (add-to-list 'ac-modes 'slime-repl-mode))
 
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-center-evil-theme))
+
 (use-package projectile
   :ensure t
   :init (setq projectile-completion-system 'helm)
   :config (projectile-mode t))
-
-(use-package better-defaults :ensure t)
 
 (use-package ag :ensure t)
 
@@ -52,12 +62,12 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook ((prog-mode) . rainbow-delimiters-mode))
+  :hook ((prog-mode slime-repl-mode) . rainbow-delimiters-mode))
 
 (use-package paredit
   :ensure t
   :bind (([f7] . paredit-mode))
-  :hook ((emacs-lisp-mode slime-mode slime-repl-mode) . paredit-mode))
+  :hook ((prog-mode slime-repl-mode) . paredit-mode))
 
 (use-package ace-window
   :ensure t
@@ -81,6 +91,7 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (global-linum-mode t)
+(scroll-bar-mode 0)
 
 (setq backup-directory-alist `(("." . "~/.saves"))
       delete-old-versions t
@@ -92,14 +103,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Consolas" :foundry "SRC" :slant normal :weight normal :height 110 :width normal)))))
+ '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 115 :width normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("d9646b131c4aa37f01f909fbdd5a9099389518eb68f25277ed19ba99adeb7279" default))
+ '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(racket-mode monokai-theme use-package magit rainbow-delimiters paredit helm-projectile helm-ag flycheck company better-defaults ag ace-window)))
+   '(powerline expand-region projectile ac-slime auto-complete slime use-package)))
