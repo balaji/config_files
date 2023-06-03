@@ -1,5 +1,5 @@
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (require 'package)
 (package-initialize)
@@ -15,11 +15,21 @@
 
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
 
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
 (use-package auto-complete
   :ensure t
+  :after slime
   :config (ac-config-default))
 
 (use-package ac-slime
@@ -33,32 +43,36 @@
   :config
   (powerline-center-evil-theme))
 
+(use-package counsel
+  :ensure t
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  :bind
+  ("C-s" . swiper-isearch)
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("M-y" . counsel-yank-pop)
+  ("<f1> f" . counsel-describe-function)
+  ("<f1> v" . counsel-describe-variable)
+  ("<f1> l" . counsel-find-library)
+  ("<f2> i" . counsel-info-lookup-symbol)
+  ("<f2> u" . counsel-unicode-char)
+  ("<f2> j" . counsel-set-variable)
+  ("C-x b" . ivy-switch-buffer)
+  ("C-c v" . ivy-push-view)
+  ("C-c V" . ivy-pop-view)
+  ("C-c z" . counsel-fzf)
+  :config
+  (ivy-mode 1))
+
 (use-package projectile
   :ensure t
-  :init (setq projectile-completion-system 'helm)
-  :config (projectile-mode t))
-
-(use-package ag :ensure t)
-
-(use-package helm
-  :ensure t
-  :bind (("M-x" . helm-M-x)
-         ("C-c h" . helm-command-prefix)
-         ("M-y" . helm-show-kill-ring)
-         ("C-x b" . helm-mini)
-         ("C-x C-f" . helm-find-files)
-         ("C-c o" . helm-occur)
-         ("C-c r b" . helm-filtered-bookmarks))
+  :init
+  (setq projectile-completion-system 'ivy)
   :config
-  (helm-mode 1))
-
-(use-package helm-projectile
-  :ensure t
-  :commands (helm-projectile-on)
-  :bind (("C-x g" . helm-projectile-grep)
-         ("C-x f" . helm-projectile-find-file)))
-
-(use-package helm-ag :ensure t)
+  (projectile-mode t))
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -82,8 +96,20 @@
 
 (use-package magit :ensure t)
 
-(use-package monokai-theme :ensure t
-  :config (load-theme 'monokai t))
+(use-package solarized-theme
+  :ensure t
+  :after powerline
+  :config
+  (load-theme 'solarized-light t)
+  :init
+  (setq powerline-color1 "#657b83")
+  (setq powerline-color2 "#839496")
+  (set-face-attribute 'mode-line nil
+		      :foreground "#fdf6e3"
+		      :background "#859900"
+		      :box nil)
+  (set-face-attribute 'mode-line-inactive nil
+		      :box nil))
 
 ;;;;
 ;; Editor Stuff
@@ -110,6 +136,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" default))
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(powerline expand-region projectile ac-slime auto-complete slime use-package)))
+   '(fzf solarized solarized-theme powerline expand-region projectile ac-slime auto-complete slime use-package)))
