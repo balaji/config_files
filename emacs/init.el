@@ -1,20 +1,27 @@
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;;straight.el, emacs package manager
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+	(url-retrieve-synchronously
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+	 'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(require 'package)
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-(setq use-package-always-ensure t)
+(straight-use-package 'use-package)
+
+(use-package straight
+  :custom
+  (straight-use-package-by-default t))
 
 (use-package slime
-  :ensure t
-  :config (setq inferior-lisp-program "sbcl"))
+  :config (setq inferior-lisp-program "ros -Q run"))
 
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -23,28 +30,23 @@
 
 (use-package evil-collection
   :after evil
-  :ensure t
   :config
   (evil-collection-init))
 
 (use-package auto-complete
-  :ensure t
   :after slime
   :config (ac-config-default))
 
 (use-package ac-slime
-  :ensure t
   :hook ((slime-mode slime-repl-mode) . set-up-slime-ac)
   :after auto-complete
   :config (add-to-list 'ac-modes 'slime-repl-mode))
 
 (use-package powerline
-  :ensure t
   :config
   (powerline-center-evil-theme))
 
 (use-package counsel
-  :ensure t
   :init
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
@@ -67,56 +69,38 @@
   (ivy-mode 1))
 
 (use-package projectile
-  :ensure t
   :init
   (setq projectile-completion-system 'ivy)
+  :bind-keymap
+  ("s-p" . projectile-command-map)
   :config
   (projectile-mode t))
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 
 (use-package rainbow-delimiters
-  :ensure t
   :hook ((prog-mode slime-repl-mode) . rainbow-delimiters-mode))
 
 (use-package paredit
-  :ensure t
   :bind (([f7] . paredit-mode))
   :hook ((prog-mode slime-repl-mode) . paredit-mode))
 
 (use-package ace-window
-  :ensure t
-  :bind (("C-x o" . ace-window)))
+  :bind (("M-o" . ace-window)))
 
 (use-package flycheck
-  :ensure t
   :init
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   :config
   (global-flycheck-mode 1))
 
-(use-package magit :ensure t)
+(use-package magit)
 
-(use-package solarized-theme
-  :ensure t
-  :after powerline
-  :config
-  (load-theme 'solarized-light t)
-  :init
-  (setq powerline-color1 "#657b83")
-  (setq powerline-color2 "#839496")
-  (set-face-attribute 'mode-line nil
-		      :foreground "#fdf6e3"
-		      :background "#859900"
-		      :box nil)
-  (set-face-attribute 'mode-line-inactive nil
-		      :box nil))
+(use-package monokai-theme
+  :config (load-theme 'monokai t))
 
-;;;;
-;; Editor Stuff
-;;;;
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(global-linum-mode t)
+; on v29
+(global-display-line-numbers-mode t)
 (scroll-bar-mode 0)
 
 (setq backup-directory-alist `(("." . "~/.saves"))
@@ -129,7 +113,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 115 :width normal)))))
+ '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 140 :width normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -138,6 +122,5 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" default))
- '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(fzf solarized solarized-theme powerline expand-region projectile ac-slime auto-complete slime use-package)))
+   '(powerline expand-region projectile ac-slime auto-complete slime)))
