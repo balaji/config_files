@@ -19,7 +19,7 @@
   (straight-use-package-by-default t))
 
 (use-package slime
-  :config (setq inferior-lisp-program "ros -Q run"))
+  :config (setq inferior-lisp-program "sbcl"))
 
 (use-package evil
   :init
@@ -94,6 +94,15 @@
 
 (use-package magit)
 
+(use-package dired-sidebar
+  :commands (dired-sidebar-toggle-sidebar)
+  :bind ("C-x C-n" . dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+	    (lambda ()
+	      (unless (file-remote-p default-directory)
+		(auto-revert-mode)))))
+
 (use-package monokai-theme
   :config (load-theme 'monokai t))
 
@@ -113,7 +122,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 140 :width normal)))))
+ '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 130 :width normal)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
