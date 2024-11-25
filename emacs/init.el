@@ -18,73 +18,87 @@
   :custom
   (straight-use-package-by-default t))
 
-(use-package slime
-  :config (setq inferior-lisp-program "sbcl"))
+(tool-bar-mode 0)
+(if (version< emacs-version "29")
+    (global-linum-mode 1)
+  (global-display-line-numbers-mode t))
+(setq inhibit-startup-screen 1)
+(scroll-bar-mode 0)
 
+(setq backup-directory-alist `(("." . "~/.saves"))
+      delete-old-versions t
+      version-control t
+      vc-follow-symlinks t)
+
+(use-package evil-terminal-cursor-changer)
+
+(if (display-graphic-p)
+    (progn (menu-bar-mode 1)
+	   (evil-terminal-cursor-changer-deactivate))
+  (progn (menu-bar-mode 0)
+	 (evil-terminal-cursor-changer-activate)	 ))
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1))
+  (evil-mode t))
 
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))
 
-(use-package auto-complete
-  :after slime
-  :config (ac-config-default))
-
-(use-package ac-slime
-  :hook ((slime-mode slime-repl-mode) . set-up-slime-ac)
-  :after auto-complete
-  :config (add-to-list 'ac-modes 'slime-repl-mode))
-
-(use-package powerline
+(use-package projectile
+  :init
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-project-search-path '("~/projects/advent_of_code/"))
+  (setq projectile-indexing-method 'native)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :config
-  (powerline-center-evil-theme))
+  (projectile-mode t))
+
+
+
+(use-package paredit
+  :hook
+  ((emacs-lisp-mode lisp-mode) . paredit-mode)
+  :bind
+  ("<f7>" . 'paredit-mode))
+
+(use-package rainbow-delimiters
+  :hook
+  ((prog-mode emacs-lisp-mode lisp-mode erlang-mode) . rainbow-delimiters-mode)
+  :config
+  (rainbow-delimiters-mode))
 
 (use-package counsel
   :init
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
+  (setq enable-recursive-minibuffers t)
+  :config
+  (ivy-mode)
   :bind
-  ("C-s" . swiper-isearch)
-  ("M-x" . counsel-M-x)
-  ("C-x C-f" . counsel-find-file)
-  ("M-y" . counsel-yank-pop)
-  ("<f1> f" . counsel-describe-function)
-  ("<f1> v" . counsel-describe-variable)
-  ("<f1> l" . counsel-find-library)
-  ("<f2> i" . counsel-info-lookup-symbol)
-  ("<f2> u" . counsel-unicode-char)
-  ("<f2> j" . counsel-set-variable)
-  ("C-x b" . ivy-switch-buffer)
-  ("C-c v" . ivy-push-view)
-  ("C-c V" . ivy-pop-view)
-  ("C-c z" . counsel-fzf)
-  :config
-  (ivy-mode 1))
+  (("\C-s" . 'swiper)
+   ("C-c C-r" . 'ivy-resume)
+   ("<f6>" . 'ivy-resume)
+   ("M-x" . 'counsel-M-x)
+   ("C-x C-f" . 'counsel-find-file)
+   ("<f1> f" . 'counsel-describe-function)
+   ("<f1> v" . 'counsel-describe-variable)
+   ("<f1> o" . 'counsel-describe-symbol)
+   ("<f1> l" . 'counsel-find-library)
+   ("<f2> i" . 'counsel-info-lookup-symbol)
+   ("<f2> u" . 'counsel-unicode-char)
+   ("C-c g" . 'counsel-git)
+   ("C-c j" . 'counsel-git-grep)
+   ("C-c k" . 'counsel-ag)
+   ("C-x l" . 'counsel-locate)))
 
-(use-package projectile
-  :init
-  (setq projectile-completion-system 'ivy)
-  :bind-keymap
-  ("s-p" . projectile-command-map)
-  :config
-  (projectile-mode t))
-
-(use-package rainbow-delimiters
-  :hook ((prog-mode slime-repl-mode) . rainbow-delimiters-mode))
-
-(use-package paredit
-  :bind (([f7] . paredit-mode))
-  :hook ((prog-mode slime-repl-mode) . paredit-mode))
-
-(use-package ace-window
-  :bind (("M-o" . ace-window)))
+(use-package company
+  :hook
+  ((after-init) . 'global-company-mode))
 
 (use-package flycheck
   :init
@@ -92,130 +106,71 @@
   :config
   (global-flycheck-mode 1))
 
-(use-package magit)
+					;(setq load-path (cons "/usr/lib64/erlang/lib/tools-3.6/emacs" load-path))
+					;(setq erlang-root-dir "/usr/lib64/erlang")
+					;(setq exec-path (cons "/usr/lib64/erlang" exec-path))
+					;(require 'erlang-start)
+					;(add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 
-(use-package dired-sidebar
-  :commands (dired-sidebar-toggle-sidebar)
-  :bind ("C-x C-n" . dired-sidebar-toggle-sidebar)
+(use-package erlang)
+
+(setq lsp-keymap-prefix "C-l")
+(use-package lsp-mode
   :init
-  (add-hook 'dired-sidebar-mode-hook
-	    (lambda ()
-	      (unless (file-remote-p default-directory)
-		(auto-revert-mode)))))
+  (setq lsp-log-io t)
+  :hook
+  ((erlang-mode) . 'lsp))
+
+(use-package yasnippet
+  :config
+  (yas-global-mode t))
+
+(use-package lsp-ui
+  :config
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-position 'bottom))
+
+(use-package origami
+  :hook
+  ((erlang-mode) . origami-mode))
+
+(use-package lsp-origami
+  :after origami
+  :hook
+  ((origami-mode) . lsp-origami-mode))
+
+(use-package lsp-ivy)
+
+(use-package which-key
+  :hook
+  ((erlang-mode) . which-key-mode))
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (use-package solaire-mode
   :config (solaire-global-mode +1))
 
 (use-package doom-themes
-  :config (load-theme 'doom-one t))
+  :config (load-theme 'doom-dark+ t))
 
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(if (version< emacs-version "29")
-    (global-linum-mode 1)
-  (global-display-line-numbers-mode t))
-(setq inhibit-startup-screen 1)
-(scroll-bar-mode 0)
-(load "~/.emacs.d/tab-line.el")
+(use-package ace-window
+  :bind
+  (("M-o" . ace-window)))
 
-(setq backup-directory-alist `(("." . "~/.saves"))
-      delete-old-versions t
-      version-control t
-      vc-follow-symlinks t)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Monaco" :foundry "SRC" :slant normal :weight normal :height 130 :width normal)))))
-
+(use-package powerline
+  :config
+  (powerline-default-theme))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(connection-local-criteria-alist
-   '(((:application tramp :machine "localhost")
-      tramp-connection-local-darwin-ps-profile)
-     ((:application tramp :machine "Balajis-iMac.local")
-      tramp-connection-local-darwin-ps-profile)
-     ((:application tramp)
-      tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile)))
- '(connection-local-profile-alist
-   '((tramp-connection-local-darwin-ps-profile
-      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (euid . number)
-       (user . string)
-       (egid . number)
-       (comm . 52)
-       (state . 5)
-       (ppid . number)
-       (pgrp . number)
-       (sess . number)
-       (ttname . string)
-       (tpgid . number)
-       (minflt . number)
-       (majflt . number)
-       (time . tramp-ps-time)
-       (pri . number)
-       (nice . number)
-       (vsize . number)
-       (rss . number)
-       (etime . tramp-ps-time)
-       (pcpu . number)
-       (pmem . number)
-       (args)))
-     (tramp-connection-local-busybox-ps-profile
-      (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (user . string)
-       (group . string)
-       (comm . 52)
-       (state . 5)
-       (ppid . number)
-       (pgrp . number)
-       (ttname . string)
-       (time . tramp-ps-time)
-       (nice . number)
-       (etime . tramp-ps-time)
-       (args)))
-     (tramp-connection-local-bsd-ps-profile
-      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (euid . number)
-       (user . string)
-       (egid . number)
-       (group . string)
-       (comm . 52)
-       (state . string)
-       (ppid . number)
-       (pgrp . number)
-       (sess . number)
-       (ttname . string)
-       (tpgid . number)
-       (minflt . number)
-       (majflt . number)
-       (time . tramp-ps-time)
-       (pri . number)
-       (nice . number)
-       (vsize . number)
-       (rss . number)
-       (etime . number)
-       (pcpu . number)
-       (pmem . number)
-       (args)))
-     (tramp-connection-local-default-shell-profile
-      (shell-file-name . "/bin/sh")
-      (shell-command-switch . "-c"))
-     (tramp-connection-local-default-system-profile
-      (path-separator . ":")
-      (null-device . "/dev/null"))))
- '(custom-safe-themes
-   '("afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "51c71bb27bdab69b505d9bf71c99864051b37ac3de531d91fdad1598ad247138" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" default))
- '(package-selected-packages
-   '(powerline expand-region projectile ac-slime auto-complete slime)))
+ '(global-display-line-numbers-mode t)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal)))))
