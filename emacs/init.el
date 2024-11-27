@@ -1,8 +1,10 @@
-;;straight.el, emacs package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
+       (expand-file-name
+	"straight/repos/straight.el/bootstrap.el"
+	(or (bound-and-true-p straight-base-dir)
+	    user-emacs-directory)))
+      (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
 	(url-retrieve-synchronously
@@ -11,20 +13,17 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
+(setq straight-use-package-by-default t)
 (straight-use-package 'use-package)
 
-(use-package straight
-  :custom
-  (straight-use-package-by-default t))
-
 (tool-bar-mode 0)
+(cua-mode t)
 (if (version< emacs-version "29")
     (global-linum-mode 1)
   (global-display-line-numbers-mode t))
 (setq inhibit-startup-screen 1)
 (scroll-bar-mode 0)
-
+(setq visible-bell 1)
 (setq backup-directory-alist `(("." . "~/.saves"))
       delete-old-versions t
       version-control t
@@ -36,7 +35,11 @@
     (progn (menu-bar-mode 1)
 	   (evil-terminal-cursor-changer-deactivate))
   (progn (menu-bar-mode 0)
-	 (evil-terminal-cursor-changer-activate)	 ))
+	 (evil-terminal-cursor-changer-activate)))
+(custom-set-faces
+ '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal)))))
+
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -53,17 +56,16 @@
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-project-search-path '("~/projects/advent_of_code/"))
-  (setq projectile-indexing-method 'native)
+  (setq projectile-globally-ignored-file-suffixes '("beam"))
+  (setq projectile-globally-ignored-directories '("_build"))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :config
   (projectile-mode t))
 
-
-
 (use-package paredit
   :hook
-  ((emacs-lisp-mode lisp-mode) . paredit-mode)
+  ((emacs-lisp-mode lisp-mode erlang-mode) . paredit-mode)
   :bind
   ("<f7>" . 'paredit-mode))
 
@@ -73,12 +75,20 @@
   :config
   (rainbow-delimiters-mode))
 
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 (use-package counsel
+  :after orderless
   :init
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
+  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
   :config
   (ivy-mode)
+  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
   :bind
   (("\C-s" . 'swiper)
    ("C-c C-r" . 'ivy-resume)
@@ -106,17 +116,14 @@
   :config
   (global-flycheck-mode 1))
 
-					;(setq load-path (cons "/usr/lib64/erlang/lib/tools-3.6/emacs" load-path))
-					;(setq erlang-root-dir "/usr/lib64/erlang")
-					;(setq exec-path (cons "/usr/lib64/erlang" exec-path))
-					;(require 'erlang-start)
-					;(add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil)))
+(setq load-path (cons  "/home/linuxbrew/.linuxbrew/lib/erlang/lib/tools-4.1/emacs" load-path))
+(setq erlang-root-dir "/home/linuxbrew/.linuxbrew/lib/erlang")
+(setq exec-path (cons "/home/linuxbrew/.linuxbrew/lib/erlang/bin" exec-path))
+(require 'erlang-start)
 
-(use-package erlang)
-
-(setq lsp-keymap-prefix "C-l")
 (use-package lsp-mode
   :init
+  (setq lsp-keymap-prefix "C-l")
   (setq lsp-log-io t)
   :hook
   ((erlang-mode) . 'lsp))
@@ -133,44 +140,45 @@
 
 (use-package origami
   :hook
-  ((erlang-mode) . origami-mode))
-
-(use-package lsp-origami
-  :after origami
-  :hook
-  ((origami-mode) . lsp-origami-mode))
+  ((erlang-mode) . origami-mode)
+  :config
+  (global-origami-mode 1))
 
 (use-package lsp-ivy)
 
 (use-package which-key
-  :hook
-  ((erlang-mode) . which-key-mode))
+  :config
+  (which-key-mode 1))
+
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (use-package solaire-mode
-  :config (solaire-global-mode +1))
+  :config(solaire-global-mode +1))
 
 (use-package doom-themes
   :config (load-theme 'doom-dark+ t))
 
-(use-package ace-window
-  :bind
-  (("M-o" . ace-window)))
-
 (use-package powerline
   :config
   (powerline-default-theme))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-display-line-numbers-mode t)
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal)))))
+
+(use-package magit)
+
+(use-package winum
+  :init
+  (winum-set-keymap-prefix (kbd "C-c"))
+  :config
+  (winum-mode))
+
+(use-package marginalia
+  :bind
+  (:map minibuffer-local-map
+	("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
+(use-package expand-region
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  (global-set-key (kbd "C--") 'er/contract-region))
