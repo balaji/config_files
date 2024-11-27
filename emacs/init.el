@@ -1,0 +1,5 @@
+(load "~/.emacs.d/init-straight.el")
+(load "~/.emacs.d/init-emacs.el")
+(load "~/.emacs.d/init-editor-utils.el")
+(load "~/.emacs.d/init-minibuffer-management.el")
+(load "~/.emacs.d/init-lang.el")
