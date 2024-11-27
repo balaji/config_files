@@ -22,7 +22,7 @@
     (if (eq system-type 'gnu/linux)
       ;;; linux
 	(progn
-	  (setq erlang-installed-path "/home/linuxbrew/.linuxbrew/lib/erlang")
+	  (setq erlang-installed-path "/usr/local/lib/erlang")
 	  (setq projects-path '("~/projects/"))
 	  )
     ;;; windows
@@ -36,5 +36,5 @@
     (progn (menu-bar-mode 0)
 	   (evil-terminal-cursor-changer-activate)))
   (custom-set-faces
-   '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 140 :width normal)))))
+   '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal)))))
   )

@@ -13,32 +13,6 @@
   :init
   (savehist-mode))
 
-(use-package orderless
-  :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
-
-;; Enable rich annotations using the Marginalia package
-(use-package marginalia
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
-
-  ;; The :init section is always executed.
-  :init
-
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
-  (marginalia-mode))
-
-
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -188,14 +162,13 @@
 	("M-p w w" . whaler) ;; Change between directories changing working dir.
 	;; ("M-p w p" . whaler :change-cwd-auto nil) ;; Change between directories WITHOUT changing working dir.
 	)
-	:custom
+	:config
 	;; RECOMMENDED! Add at least one of the following or whaler won't do nothing
 	(setq whaler-directories-alist projects-path) ;; List of parent directories to search for projects and add them.
 	(setq whaler-oneoff-directories-alist '("~/.config/emacs")) ;; List of projects to add directly.
 	;; (OPTIONAL)
 	(setq whaler-include-hidden-directories nil) ;; Whether whaler should include hidden directories.
 	(setq whaler-default-working-directory "~") ;; Fallback working directory to search for files in case no project has been selected.
-	:config
 	;; --- THIS IS IMPORTANT --- In order to avoid cpu usage finding for directories every time, the projects are populated once. To regenerate projects run this.
 	(whaler-populate-projects-directories)
 )

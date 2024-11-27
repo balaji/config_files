@@ -23,16 +23,25 @@
     (setq ruby-insert-encoding-magic-comment nil))
   (add-hook 'ruby-mode-hook 'my-ruby-mode-hook))
 
+(use-package which-key
+  :config
+  (which-key-mode)
+  :hook
+  ((erlang-mode) . 'which-key-mode)
+  )
+(use-package origami
+  :hook
+  ((erlang-mode) . 'origami-mode)
+  :config
+  (global-origami-mode 1))
+
+
+(setq lsp-keymap-prefix "C-l")
 (use-package lsp-mode
   :init
-  (setq lsp-keymap-prefix "C-l")
   (setq lsp-log-io t)
   :hook
   ((erlang-mode ruby-mode enh-ruby-mode) . 'lsp))
-
-(use-package yasnippet
-  :config
-  (yas-global-mode t))
 
 (use-package lsp-ui
   :config
@@ -40,16 +49,21 @@
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-position 'bottom))
 
-(use-package company-lsp
-  :after (company lsp))
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(use-package origami
+(use-package lsp-origami
   :hook
-  ((erlang-mode) . origami-mode)
-  :config
-  (global-origami-mode 1))
+  ((origami-mode) . 'lsp-origami-mode))
 
 (use-package lsp-ivy)
+
+(use-package yasnippet
+  :config
+  (yas-global-mode t))
+
+(use-package company-lsp
+  :after (company lsp))
 
 ;; Decides if the buffer is Ruby and in pay server
 (defun activate-pay-server-sorbet-p (filename mode)
