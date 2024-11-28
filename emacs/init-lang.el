@@ -1,6 +1,9 @@
 (setq load-path (cons  (concat erlang-installed-path "/lib/tools-4.1/emacs") load-path))
 (setq erlang-root-dir erlang-installed-path)
 (setq exec-path (cons (concat erlang-installed-path "/bin") exec-path))
+(setq inferior-erlang-machine "~/.cache/rebar3/bin/rebar3")
+(setq inferior-erlang-machine-options '("shell"))
+(setq inferior-erlang-shell-type nil)
 (require 'erlang-start)
 
 (use-package company

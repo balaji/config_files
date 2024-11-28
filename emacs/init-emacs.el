@@ -8,6 +8,8 @@
   (setq inhibit-startup-screen 1)
   (scroll-bar-mode 0)
   (setq visible-bell 1)
+  (setq auto-save-file-name-transforms
+	`((".*" ,(concat user-emacs-directory "auto-save/") t)))
   (setq backup-directory-alist `(("." . "~/.saves"))
 	delete-old-versions t
 	version-control t

@@ -38,6 +38,8 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-fine-undo t)
+  (setq evil-undo-system 'undo-redo)
   :config
   (evil-mode t))
 
@@ -51,3 +53,5 @@
 (use-package savehist
   :init
   (savehist-mode))
+
+(use-package vterm)
