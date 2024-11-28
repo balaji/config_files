@@ -17,7 +17,7 @@
     ;;; mac osx
       (progn
 	(setq erlang-installed-path "/opt/homebrew/lib/erlang")
-	(setq projects-path '("~/stripe/"))
+	(setq projects-path '("~/stripe" "~/Documents/GitHub"))
 	)
     (if (eq system-type 'gnu/linux)
       ;;; linux

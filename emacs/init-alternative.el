@@ -39,16 +39,18 @@
   (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
   (ivy-mode 1))
 
-(use-package projectile
-  :config
-  (setq projectile-project-search-path projects-path)
-  (setq projectile-completion-system 'ivy)
-  (setq projectile-indexing-method 'alien)
-  (setq projectile-sort-order 'recentf)
-  (setq projectile-enable-caching t)
+;; (use-package projectile
+;;   :config
+;;   (setq projectile-project-search-path projects-path)
+;;   (setq projectile-completion-system 'ivy)
+;;   (setq projectile-indexing-method 'alien)
+;;   (setq projectile-sort-order 'recentf)
+;;   (setq projectile-enable-caching nil)
+;;   (setq projectile-use-git-grep t)
+;;   (setq projectile-tags-command "/usr/local/bin/ctags --exclude=node_modules --exclude=admin --exclude=.git --exclude=frontend --exclude=home --exclude=**/*.js -Re -f \"%s\" %s")
 
-  :bind-keymap
-  (("C-c p" . projectile-command-map))
-  :config
-  (projectile-mode +1))
+;;   :bind-keymap
+;;   (("C-c p" . projectile-command-map))
+;;   :config
+;;   (projectile-mode +1))
 

@@ -47,3 +47,7 @@
   (evil-collection-init))
 
 (use-package magit)
+
+(use-package savehist
+  :init
+  (savehist-mode))

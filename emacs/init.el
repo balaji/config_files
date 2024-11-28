@@ -3,4 +3,5 @@
 (load "~/.emacs.d/init-editor-utils.el")
 ;(load "~/.emacs.d/init-minibuffer-management.el")
 (load "~/.emacs.d/init-alternative.el")
+(load "~/.emacs.d/init-whaler.el")
 (load "~/.emacs.d/init-lang.el")
