@@ -4,6 +4,18 @@
 (setq inferior-erlang-machine "~/.cache/rebar3/bin/rebar3")
 (setq inferior-erlang-machine-options '("shell"))
 (setq inferior-erlang-shell-type nil)
+
+(defun my-find-rebar-root ()
+  (let ((dir (locate-dominating-file default-directory "rebar.config")))
+    (or dir default-directory)))
+
+(defvar erlang-compile-function 'my-inferior-erlang-compile)
+
+(defun my-inferior-erlang-compile ()
+  (interactive)
+  (let ((default-directory (my-find-rebar-root)))
+    (compile "~/.cache/rebar3/bin/rebar3 compile")))
+
 (require 'erlang-start)
 
 (use-package company

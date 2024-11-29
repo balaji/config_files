@@ -4,12 +4,12 @@
   (general-auto-unbind-keys)
 
   (defconst slk/emacs-leader-global-prefix "C-c")
-(general-define-key
- :states '(emacs insert normal)
- :prefix-map 'custom/prefix
- :global-prefix "C-c"
- :non-normal-prefix "M-SPC"
- :prefix "SPC")
+  (general-define-key
+   :states '(emacs insert normal)
+   :prefix-map 'custom/prefix
+   :global-prefix "C-c"
+   :non-normal-prefix "M-SPC"
+   :prefix "SPC")
 
   (general-create-definer leader-global
     :keymaps 'custom/prefix))
