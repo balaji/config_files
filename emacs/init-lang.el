@@ -1,7 +1,7 @@
 (setq load-path (cons  (concat erlang-installed-path "/lib/tools-4.1/emacs") load-path))
 (setq erlang-root-dir erlang-installed-path)
 (setq exec-path (cons (concat erlang-installed-path "/bin") exec-path))
-(setq inferior-erlang-machine "~/.cache/rebar3/bin/rebar3")
+(setq inferior-erlang-machine rebar3-installed-path)
 (setq inferior-erlang-machine-options '("shell"))
 (setq inferior-erlang-shell-type nil)
 
@@ -14,7 +14,7 @@
 (defun my-inferior-erlang-compile ()
   (interactive)
   (let ((default-directory (my-find-rebar-root)))
-    (compile "~/.cache/rebar3/bin/rebar3 compile")))
+    (compile (concat rebar3-installed-path " compile"))))
 
 (require 'erlang-start)
 
@@ -104,11 +104,11 @@
                          (require 'lsp-pyright)
                          (lsp)))) 
 
-(use-package paredit
-  :hook
-  ((emacs-lisp-mode lisp-mode erlang-mode) . paredit-mode)
+(use-package smartparens
   :bind
-  ("<f7>" . 'paredit-mode))
+  ("<f7>" . 'smartparens-mode)
+  :config
+  (smartparens-global-mode t))
 
 (use-package rainbow-delimiters
   :hook

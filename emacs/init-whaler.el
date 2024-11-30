@@ -31,7 +31,7 @@
   :general
   (leader-global
     "ff" 'find-file-in-project-by-selected
-    "zf" 'custom/whaler-find-files
+    "zf" 'find-file-in-project
     "ss" 'custom/whaler-rg
     "pp" 'whaler
     "su" (lambda () (interactive)(whaler :change-cwd-auto nil))
