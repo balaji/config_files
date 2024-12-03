@@ -1,21 +1,6 @@
 (setq load-path (cons  (concat erlang-installed-path "/lib/tools-4.1/emacs") load-path))
 (setq erlang-root-dir erlang-installed-path)
 (setq exec-path (cons (concat erlang-installed-path "/bin") exec-path))
-(setq inferior-erlang-machine rebar3-installed-path)
-(setq inferior-erlang-machine-options '("shell"))
-(setq inferior-erlang-shell-type nil)
-
-(defun my-find-rebar-root ()
-  (let ((dir (locate-dominating-file default-directory "rebar.config")))
-    (or dir default-directory)))
-
-(defvar erlang-compile-function 'my-inferior-erlang-compile)
-
-(defun my-inferior-erlang-compile ()
-  (interactive)
-  (let ((default-directory (my-find-rebar-root)))
-    (compile (concat rebar3-installed-path " compile"))))
-
 (require 'erlang-start)
 
 (use-package company
@@ -50,13 +35,30 @@
   :config
   (global-origami-mode 1))
 
+(use-package corfu
+  :init
+  (global-corfu-mode))
+(use-package cape)
 
 (setq lsp-keymap-prefix "C-l")
 (use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
   :init
   (setq lsp-log-io t)
+  (defun my/orderless-dispatch-flex-first (_pattern index _total)
+    (and (eq index 0) 'orderless-flex))
+
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))
+    ;; Optionally configure the first word as flex filtered.
+    (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
+    ;; Optionally configure the cape-capf-buster.
+    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
   :hook
-  ((erlang-mode ruby-mode enh-ruby-mode) . 'lsp))
+  ((erlang-mode ruby-mode enh-ruby-mode) . 'lsp)
+  (lsp-completion-mode . my/lsp-mode-setup-completion))
 
 (use-package lsp-ui
   :config
@@ -72,10 +74,6 @@
   ((origami-mode) . 'lsp-origami-mode))
 
 (use-package lsp-ivy)
-
-(use-package yasnippet
-  :config
-  (yas-global-mode t))
 
 (use-package company-lsp
   :after (company lsp))

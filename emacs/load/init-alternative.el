@@ -31,26 +31,9 @@
    ("C-x b" . 'ivy-switch-buffer)
    ("C-c k" . 'counsel-rg)
    ("C-c n" . 'counsel-fzf)
-   ("C-c t" . 'counsel-load-theme)
    ("C-c r" . 'counsel-recentf)
    )
   :config
   (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
   (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
   (ivy-mode 1))
-
-;; (use-package projectile
-;;   :config
-;;   (setq projectile-project-search-path projects-path)
-;;   (setq projectile-completion-system 'ivy)
-;;   (setq projectile-indexing-method 'alien)
-;;   (setq projectile-sort-order 'recentf)
-;;   (setq projectile-enable-caching nil)
-;;   (setq projectile-use-git-grep t)
-;;   (setq projectile-tags-command "/usr/local/bin/ctags --exclude=node_modules --exclude=admin --exclude=.git --exclude=frontend --exclude=home --exclude=**/*.js -Re -f \"%s\" %s")
-
-;;   :bind-keymap
-;;   (("C-c p" . projectile-command-map))
-;;   :config
-;;   (projectile-mode +1))
-

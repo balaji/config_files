@@ -1,15 +1,15 @@
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
-	"straight/repos/straight.el/bootstrap.el"
-	(or (bound-and-true-p straight-base-dir)
-	    user-emacs-directory)))
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
       (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-	 'silent 'inhibit-cookies)
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -19,6 +19,23 @@
 (use-package better-defaults)
 
 (use-package emacs
+  :custom
+  ;; TAB cycle if there are only few candidates
+  ;; (completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (tab-always-indent 'complete)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (text-mode-ispell-word-completion nil)
+
+  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+  ;; commands are hidden, since they are not used via M-x. This setting is
+  ;; useful beyond Corfu.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+
   :config
   (setq inhibit-startup-screen 1)
   (savehist-mode t)
@@ -53,9 +70,8 @@
         (setq lsp-erlang-ls-server-path "c:/users/balaj/bin/erlang_ls.cmd")
         (setq projects-path '("~/projects"))
         )))
-
   (custom-set-faces
    '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal))))))
 
 
-(mapc 'load (file-expand-wildcards (concat (car projects-path) "/config_files/emacs/load/" "*.el")))
+(mapc 'load (file-expand-wildcards "~/projects/config_files/emacs/load/*.el"))
