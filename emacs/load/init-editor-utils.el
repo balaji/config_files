@@ -3,8 +3,6 @@
   (global-set-key (kbd "C-=") 'er/expand-region)
   (global-set-key (kbd "C--") 'er/contract-region))
 
-(use-package fzf)
-
 (use-package ace-window
   :config
   (global-set-key (kbd "M-o") 'ace-window)

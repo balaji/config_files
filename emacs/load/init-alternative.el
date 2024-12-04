@@ -23,17 +23,18 @@
   ;; package.
   (marginalia-mode))
 
-(use-package counsel
+(use-package vertico
+  :custom
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  ;; (vertico-count 20) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
+
+(use-package consult
   :bind
-  (("C-s" . 'swiper-isearch)
-   ("M-x" . 'counsel-M-x)
-   ("C-x C-f" . 'counsel-find-file)
-   ("C-x b" . 'ivy-switch-buffer)
-   ("C-c k" . 'counsel-rg)
-   ("C-c n" . 'counsel-fzf)
-   ("C-c r" . 'counsel-recentf)
-   )
-  :config
-  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
-  (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
-  (ivy-mode 1))
+  (("C-x b" . consult-buffer)
+   ("C-s" . consult-line)
+   ("C-c r" . consult-recent-file)))
+

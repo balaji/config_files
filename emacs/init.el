@@ -39,9 +39,8 @@
   :config
   (setq inhibit-startup-screen 1)
   (savehist-mode t)
-  (if (memq window-system '(w32 x ns pc mac))
-      (menu-bar-mode 1))
   (cua-mode t)
+  (recentf-mode t)
   (if (version< emacs-version "29")
       (global-linum-mode 1)
     (global-display-line-numbers-mode t))
@@ -55,6 +54,7 @@
         (setq erlang-installed-path "/opt/homebrew/lib/erlang")
         (setq rebar3-installed-path "~/.cache/rebar3/bin/rebar3")
         (setq projects-path '("~/projects" "~/stripe"))
+        (use-package vterm)
         )
     (if (eq system-type 'gnu/linux)
       ;;; linux
@@ -62,6 +62,7 @@
 	  (setq erlang-installed-path "/usr/local/lib/erlang")
 	  (setq rebar3-installed-path "~/.cache/rebar3/bin/rebar3")
 	  (setq projects-path '("~/projects"))
+          (use-package vterm)
 	  )
     ;;; windows
       (progn
@@ -71,7 +72,7 @@
         (setq projects-path '("~/projects"))
         )))
   (custom-set-faces
-   '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 102 :width normal))))))
+   '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 115 :width normal))))))
 
 
 (mapc 'load (file-expand-wildcards "~/projects/config_files/emacs/load/*.el"))

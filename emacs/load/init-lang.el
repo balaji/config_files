@@ -29,15 +29,11 @@
   :hook
   ((erlang-mode) . 'which-key-mode)
   )
-(use-package origami
-  :hook
-  ((erlang-mode) . 'origami-mode)
-  :config
-  (global-origami-mode 1))
 
 (use-package corfu
   :init
   (global-corfu-mode))
+
 (use-package cape)
 
 (setq lsp-keymap-prefix "C-l")
@@ -68,12 +64,6 @@
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
-
-(use-package lsp-origami
-  :hook
-  ((origami-mode) . 'lsp-origami-mode))
-
-(use-package lsp-ivy)
 
 (use-package company-lsp
   :after (company lsp))
@@ -106,6 +96,7 @@
   :bind
   ("<f7>" . 'smartparens-mode)
   :config
+  (require 'smartparens-config)
   (smartparens-global-mode t))
 
 (use-package rainbow-delimiters
