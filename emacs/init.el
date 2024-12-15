@@ -54,7 +54,6 @@
         (setq erlang-installed-path "/opt/homebrew/lib/erlang")
         (setq rebar3-installed-path "~/.cache/rebar3/bin/rebar3")
         (setq projects-path '("~/projects" "~/stripe"))
-        (use-package vterm)
         )
     (if (eq system-type 'gnu/linux)
       ;;; linux
@@ -62,7 +61,6 @@
 	  (setq erlang-installed-path "/usr/local/lib/erlang")
 	  (setq rebar3-installed-path "~/.cache/rebar3/bin/rebar3")
 	  (setq projects-path '("~/projects"))
-          (use-package vterm)
 	  )
     ;;; windows
       (progn
@@ -70,9 +68,19 @@
         (setq rebar3-installed-path "c:/users/balaj/bin/rebar3.cmd")
         (setq lsp-erlang-ls-server-path "c:/users/balaj/bin/erlang_ls.cmd")
         (setq projects-path '("~/projects"))
-        )))
-  (custom-set-faces
-   '(default ((t (:family "Cascadia Code" :foundry "SAJA" :slant normal :weight regular :height 115 :width normal))))))
+        ))))
+(set-frame-font "Cascadia Mono 11" nil t)
+ 
+
+(straight-use-package
+ '(eat :type git
+       :host codeberg
+       :repo "akib/emacs-eat"
+       :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))))
 
 
 (mapc 'load (file-expand-wildcards "~/projects/config_files/emacs/load/*.el"))
