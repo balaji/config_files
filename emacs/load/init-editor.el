@@ -54,7 +54,7 @@
   :config(solaire-global-mode +1))
 
 (use-package doom-themes
-  :config (load-theme 'doom-one t))
+  :config (load-theme 'doom-vibrant t))
 
 (use-package doom-modeline
   :config

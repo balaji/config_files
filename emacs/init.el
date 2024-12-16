@@ -19,34 +19,14 @@
 (use-package better-defaults)
 
 (use-package emacs
-  :custom
-  ;; TAB cycle if there are only few candidates
-  ;; (completion-cycle-threshold 3)
-
-  ;; Enable indentation+completion using the TAB key.
-  ;; `completion-at-point' is often bound to M-TAB.
-  (tab-always-indent 'complete)
-
-  ;; Emacs 30 and newer: Disable Ispell completion function.
-  ;; Try `cape-dict' as an alternative.
-  (text-mode-ispell-word-completion nil)
-
-  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
-  ;; commands are hidden, since they are not used via M-x. This setting is
-  ;; useful beyond Corfu.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-
   :config
   (setq inhibit-startup-screen 1)
-  (savehist-mode t)
+  (setq vc-follow-symlinks t)
   (cua-mode t)
   (recentf-mode t)
   (if (version< emacs-version "29")
       (global-linum-mode 1)
     (global-display-line-numbers-mode t))
-
-  (setq auto-save-file-name-transforms
-        `((".*" ,(concat user-emacs-directory "auto-save/") t)))
 
   (if (eq system-type 'darwin)
     ;;; mac osx
@@ -68,9 +48,21 @@
         (setq rebar3-installed-path "c:/users/balaj/bin/rebar3.cmd")
         (setq lsp-erlang-ls-server-path "c:/users/balaj/bin/erlang_ls.cmd")
         (setq projects-path '("~/projects"))
-        ))))
-(set-frame-font "Cascadia Mono 11" nil t)
- 
+        )))
+  )
+
+(defun my/on-window-display ()
+  (if (display-graphic-p)
+      (progn (set-frame-font "Cascadia Mono 11" nil t)
+             (menu-bar-mode 1))
+    (progn
+      (menu-bar-mode 0))))
+
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (select-frame frame)
+            (my/on-window-display)))
+(add-hook 'after-init-hook #'my/on-window-display)
 
 (straight-use-package
  '(eat :type git
@@ -81,6 +73,5 @@
                ("terminfo/65" "terminfo/65/*")
                ("integration" "integration/*")
                (:exclude ".dir-locals.el" "*-tests.el"))))
-
 
 (mapc 'load (file-expand-wildcards "~/projects/config_files/emacs/load/*.el"))
