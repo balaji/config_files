@@ -19,11 +19,20 @@
 (use-package better-defaults)
 
 (use-package emacs
-  :config
+  :custom
+  (enable-recursive-minibuffers t)
+  (read-extended-command-predicate #'command-completion-default-include-p)
+
+  :init
   (setq inhibit-startup-screen 1)
   (setq vc-follow-symlinks t)
   (cua-mode t)
   (recentf-mode t)
+
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
   (if (version< emacs-version "29")
       (global-linum-mode 1)
     (global-display-line-numbers-mode t))
@@ -49,20 +58,20 @@
         (setq lsp-erlang-ls-server-path "c:/users/balaj/bin/erlang_ls.cmd")
         (setq projects-path '("~/projects"))
         )))
+  (defun my/on-window-display ()
+    (if (display-graphic-p)
+        (progn (set-frame-font "Cascadia Mono 11" nil t)
+               (menu-bar-mode 1))
+      (progn
+        (menu-bar-mode 0))))
+
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (select-frame frame)
+              (my/on-window-display)))
+  (add-hook 'after-init-hook #'my/on-window-display)
   )
 
-(defun my/on-window-display ()
-  (if (display-graphic-p)
-      (progn (set-frame-font "Cascadia Mono 11" nil t)
-             (menu-bar-mode 1))
-    (progn
-      (menu-bar-mode 0))))
-
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (select-frame frame)
-            (my/on-window-display)))
-(add-hook 'after-init-hook #'my/on-window-display)
 
 (straight-use-package
  '(eat :type git
