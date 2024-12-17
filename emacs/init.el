@@ -79,9 +79,7 @@
     (if (display-graphic-p)
         (progn
           (set-frame-font "Cascadia Mono 12" nil t)
-          (menu-bar-mode 1))
-      (progn
-        (menu-bar-mode 0))))
+          )))
 
   (add-hook 'after-make-frame-functions
             (lambda (frame)
