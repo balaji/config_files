@@ -57,6 +57,8 @@
       )))
 (use-package better-defaults :ensure t)
 
+(add-to-list 'load-path "~/projects/config_files/emacs/modules/")
+(require 'vim-tab-bar)
 (use-package emacs
   :custom
   (enable-recursive-minibuffers t)
@@ -78,8 +80,12 @@
   (defun my/on-window-display ()
     (if (display-graphic-p)
         (progn
-          (set-frame-font "Cascadia Mono 12" nil t)
-          )))
+          (set-frame-font "Cascadia Mono 11" nil t)
+          (vim-tab-bar-mode 1)
+          )
+      (progn
+        (vim-tab-bar-mode 0)
+	)))
 
   (add-hook 'after-make-frame-functions
             (lambda (frame)
