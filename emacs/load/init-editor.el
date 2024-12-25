@@ -20,6 +20,8 @@
    ("C-c r" . consult-recent-file)))
 
 (use-package corfu
+  :custom
+  (corfu-auto t)
   :ensure t
   :bind
   (:map corfu-map ("SPC" . corfu-insert-separator))
@@ -44,6 +46,9 @@
                  ("terminfo/65" "terminfo/65/*")
                  ("integration" "integration/*")
                  (:exclude ".dir-locals.el" "*-tests.el"))))
+
+(use-package eldoc-box
+  :ensure t)
 
 (use-package elpy
   :ensure t)
@@ -118,11 +123,10 @@
    :global-prefix "C-c"
    :non-normal-prefix "M-SPC"
    :prefix "SPC"
-   "ff" 'find-file-in-project-by-selected
-   "sf" 'consult-fd
-   "sr" 'consult-ripgrep
+   "fr" 'find-file-in-project-by-selected
+   "ff" 'consult-fd
+   "ss" 'consult-ripgrep
    "so" 'consult-outline
-   "sc" 'avy-goto-char
    "sw" 'avy-goto-word-1
    "sl" 'avy-goto-line
    "pp" 'whaler
@@ -130,59 +134,34 @@
 
   (general-create-definer leader-global :keymaps 'custom/prefix))
 
-(use-package lsp-mode
+;; required for treemacs
+(use-package hydra
+  :ensure t)
+
+(use-package yasnippet
   :ensure t
-  :custom
-  (lsp-completion-provider :none) ;; we use Corfu!
   :init
-  (setq lsp-keymap-prefix "C-l")
-  (setq lsp-log-io t)
-  (defun my/orderless-dispatch-flex-first (_pattern index _total)
-    (and (eq index 0) 'orderless-flex))
+  (yas-global-mode 1))
 
-  (defun my/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))
-    ;; Optionally configure the first word as flex filtered.
-    (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
-    ;; Optionally configure the cape-capf-buster.
-    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
+(use-package yasnippet-snippets
+  :ensure t)
+
+(use-package eglot
   :config
-  ;; Decides if the buffer is Ruby and in pay server
-  (defun activate-pay-server-sorbet-p (filename mode)
-    (and
-     (string-prefix-p (expand-file-name "~/stripe/pay-server")
-                      filename)
-     (or (eq major-mode 'ruby-mode) (eq major-mode 'enh-ruby-mode))))
-
-  ;; Configure the connection to Sorbet
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("pay" "exec" "scripts/bin/typecheck" "--lsp" "--enable-all-experimental-lsp-features"))
-                    :major-modes '(ruby-mode enh-ruby-mode)
-                    :priority 25
-                    :activation-fn 'activate-pay-server-sorbet-p
-                    :server-id 'stripe-sorbet-lsp))
+  (add-to-list 'eglot-server-programs
+               '(erlang-mode . ("elp" "server")))
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+  (setq completion-category-overrides '((eglot (styles orderless))
+                                        (eglot-capf (styles orderless))))
+  (defun my/eglot-capf ()
+    (setq-local completion-at-point-functions
+                (list (cape-capf-super
+                       #'eglot-completion-at-point
+                       #'cape-file))))
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
 
   :hook
-  ((erlang-mode ruby-mode enh-ruby-mode) . 'lsp)
-  (lsp-completion-mode . my/lsp-mode-setup-completion))
-
-(use-package lsp-pyright
-  :ensure t
-  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
-
-(use-package lsp-ui
-  :ensure t
-  :config
-  (setq lsp-ui-sideline-enable t)
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-position 'bottom))
-
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+  ((erlang-mode) . 'eglot-ensure))
 
 (use-package magit
   :ensure t)
@@ -229,7 +208,17 @@
   :config
   (solaire-global-mode +1))
 
+;; required for magit
 (use-package transient
+  :ensure t)
+
+(use-package treemacs
+  :ensure t)
+
+(use-package treemacs-evil
+  :ensure t)
+
+(use-package treemacs-tab-bar
   :ensure t)
 
 (use-package vertico
@@ -248,6 +237,7 @@
   (setq whaler-directories-alist projects-path)
   (setq whaler-include-hidden-directories nil)
   (setq whaler-default-working-directory "~")
+  (setq whaler-oneoff-directories-alist '("~/Nextcloud/journal"))
   (whaler-populate-projects-directories))
 
 (use-package which-key

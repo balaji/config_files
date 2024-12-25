@@ -67,6 +67,8 @@
   (text-mode-ispell-word-completion nil)
 
   :init
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setq gc-cons-threshold 100000000)
   (setq inhibit-startup-screen 1)
   (setq vc-follow-symlinks t)
   (cua-mode t)
