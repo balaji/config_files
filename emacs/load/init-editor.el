@@ -30,7 +30,7 @@
 
 (use-package doom-themes
   :ensure t
-  :config (load-theme 'doom-vibrant t))
+  :config (load-theme 'doom-gruvbox t))
 
 (use-package doom-modeline
   :ensure t
@@ -74,7 +74,9 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package erlang
-  :ensure t)
+  :ensure t
+  :hook
+  (erlang-mode . eldoc-box-hover-at-point-mode))
 
 (use-package evil
   :ensure t
@@ -159,7 +161,6 @@
                        #'eglot-completion-at-point
                        #'cape-file))))
   (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
-
   :hook
   ((erlang-mode) . 'eglot-ensure))
 

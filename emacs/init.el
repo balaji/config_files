@@ -57,7 +57,7 @@
       )))
 (use-package better-defaults :ensure t)
 
-(add-to-list 'load-path "~/projects/config_files/emacs/modules/")
+(add-to-list 'load-path "~/projects/dotfiles/emacs/modules/")
 (require 'vim-tab-bar)
 (use-package emacs
   :custom
@@ -95,4 +95,4 @@
               (my/on-window-display)))
   (add-hook 'after-init-hook #'my/on-window-display))
 
-(mapc 'load (file-expand-wildcards "~/projects/config_files/emacs/load/*.el"))
+(mapc 'load (file-expand-wildcards "~/projects/dotfiles/emacs/load/*.el"))
