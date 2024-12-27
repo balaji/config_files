@@ -11,7 +11,9 @@
     "modules-center": [
     ],
     "modules-right": [
+        "custom/spotify-prev",
         "custom/spotify",
+        "custom/spotify-next",
         // "power-profiles-daemon",
         "clock",
         "battery",
@@ -71,12 +73,24 @@
 			"hibernate": "systemctl hibernate"
 		}
     },
+    "custom/spotify-prev": {
+        "exec" : "/usr/bin/python3 $HOME/.config/waybar/playerdetect.py --player spotify --button ",
+        "format": "{}",
+        "return-type": "json",
+        "on-click": "playerctl -p spotify previous",
+        "tooltip": false,
+    },
+    "custom/spotify-next": {
+        "exec" : "/usr/bin/python3 $HOME/.config/waybar/playerdetect.py --player spotify --button ",
+        "format": "{}",
+        "return-type": "json",
+        "on-click": "playerctl -p spotify next",
+        "tooltip": false,
+    },
     "custom/spotify": {
         "exec" : "/usr/bin/python3 $HOME/.config/waybar/mediaplayer.py --player spotify",
         "format": "{}",
         "return-type": "json",
-        "on-click": "playerctl play-pause",
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous"
+        "on-click": "playerctl -p spotify play-pause",
     }
 }

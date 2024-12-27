@@ -24,7 +24,7 @@ def signal_handler(sig, frame):
 
 
 class PlayerManager:
-    def __init__(self, selected_player=None, excluded_player=[]):
+    def __init__(self, selected_player=None, excluded_player=[], button=None):
         self.manager = Playerctl.PlayerManager()
         self.loop = GLib.MainLoop()
         self.manager.connect(
@@ -36,6 +36,7 @@ class PlayerManager:
         signal.signal(signal.SIGTERM, signal_handler)
         signal.signal(signal.SIGPIPE, signal.SIG_DFL)
         self.selected_player = selected_player
+        self.button = button
         self.excluded_player = excluded_player.split(',') if excluded_player else []
 
         self.init_players()
@@ -58,7 +59,6 @@ class PlayerManager:
         player = Playerctl.Player.new_from_name(player)
         player.connect("playback-status",
                        self.on_playback_status_changed, None)
-        player.connect("metadata", self.on_metadata_changed, None)
         self.manager.manage_player(player)
         self.on_metadata_changed(player, player.props.metadata)
 
@@ -67,10 +67,12 @@ class PlayerManager:
 
     def write_output(self, text, player):
         logger.debug(f"Writing output: {text}")
+        if text is not None:
+            text = self.button
 
         output = {"text": text,
-                  "class": "custom-" + player.props.player_name,
-                  "alt": player.props.player_name}
+                  "class": "custom-previous-" + player.props.player_name,
+                  "alt": "previous-" + player.props.player_name}
 
         sys.stdout.write(json.dumps(output) + "\n")
         sys.stdout.flush()
@@ -104,48 +106,19 @@ class PlayerManager:
         # or else show the first paused player
         # or else show nothing
         current_player = self.get_first_playing_player()
-        if current_player is not None:
-            self.on_metadata_changed(current_player, current_player.props.metadata)
-        else:    
+        if current_player is None:
             self.clear_output()
 
     def on_metadata_changed(self, player, metadata, _=None):
         logger.debug(f"Metadata changed for player {player.props.player_name}")
         player_name = player.props.player_name
-        artist = player.get_artist()
-        title = player.get_title()
-        artist_length = len(artist)
-        title_length = len(title)
-        if artist_length > 17:
-            artist_length = 17 + max(0, 17 - title_length)
-
-        if title_length > 17:
-            title_length = 17 + max(0, 17 - artist_length)
-
-        title = title[:title_length] + ("..." if(title_length < len(title)) else "")
-        artist = artist[:artist_length] + ("..." if (artist_length < len(artist)) else "")
-        title = title.replace("&", "&amp;")
-
-        track_info = ""
-        if player_name == "spotify" and "mpris:trackid" in metadata.keys() and ":ad:" in player.props.metadata["mpris:trackid"]:
-            track_info = "Advertisement"
-        elif artist is not None and title is not None:
-            track_info = f"{artist}  {title}"
-        else:
-            track_info = title
-
-        len_track = len(track_info)
-        padding = (43 - len_track) / 2
-        track_info = track_info.ljust(len_track + math.floor(padding), " ").rjust(43, " ")
-        if track_info:
-            if player.props.status == "Playing":
-                track_info = " " + track_info
-            else:
-                track_info = " " + track_info
-        # only print output if no other player is playing
-        current_playing = self.get_first_playing_player()
-        if current_playing is None or current_playing.props.player_name == player.props.player_name:
-            self.write_output(track_info, player)
+       # only print output if no other player is playing
+        current_player = self.get_first_playing_player()
+        if current_player is None:
+            self.write_output(None, player)
+        elif current_player.props.player_name == player_name:
+            text = "Pre"
+            self.write_output(text, player)
         else:
             logger.debug(f"Other player {current_playing.props.player_name} is playing, skipping")
 
@@ -176,6 +149,8 @@ def parse_arguments():
     # Define for which player we"re listening
     parser.add_argument("--player")
 
+    parser.add_argument("--button", default="previous")
+
     parser.add_argument("--enable-logging", action="store_true")
 
     return parser.parse_args()
@@ -187,7 +162,7 @@ def main():
     # Initialize logging
     if arguments.enable_logging:
         logfile = os.path.join(os.path.dirname(
-            os.path.realpath(__file__)), "media-player.log")
+            os.path.realpath(__file__)), f"media-player-{arguments.button}.log")
         logging.basicConfig(filename=logfile, level=logging.DEBUG,
                             format="%(asctime)s %(name)s %(levelname)s:%(lineno)d %(message)s")
 
@@ -201,7 +176,7 @@ def main():
     if arguments.exclude:
         logger.info(f"Exclude player {arguments.exclude}")
 
-    player = PlayerManager(arguments.player, arguments.exclude)
+    player = PlayerManager(arguments.player, arguments.exclude, arguments.button)
     player.run()
 
 

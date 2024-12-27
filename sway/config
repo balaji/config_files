@@ -1,5 +1,5 @@
 set $mod Mod4
-set $term foot
+set $term footclient
 set $menu fuzzel
 output * bg $HOME/.backgrounds/ferrari.jpg fill
 output eDP-1 resolution 1920x1200 position 1920,0 scale 1.25
@@ -108,8 +108,7 @@ assign {
 
 exec {
     /usr/libexec/pam_kwallet_init
-    /usr/bin/spotify --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --unity-launch
-    foot
+    foot --server
     firefox
     nm-applet
     nextcloud --background
