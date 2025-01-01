@@ -97,20 +97,27 @@ bindsym Print exec grim
 
 assign {
        [app_id="foot"] 1
-       [app_id="org.mozilla.firefox"] 2
-       [app_id="emacs"] 3
-       [class="jetbrains-idea-ce"] 3
-       [class="Code"] 3
-       [app_id="code"] 3
+       [app_id="emacs"] 2
+       [class="jetbrains-idea-ce"] 2
+       [class="Code"] 2
+       [app_id="code"] 2
+       [app_id="org.mozilla.firefox"] 3
        [class="Spotify"] 9
        [app_id="spotify"] 9
 }
+# removes title bar
+default_border none
+default_floating_border none
+font pango:monospace 0.001
+titlebar_padding 1
+titlebar_border_thickness 0
 
 exec {
     /usr/libexec/pam_kwallet_init
     foot --server
     firefox
     nm-applet
+    blueman-applet
     nextcloud --background
     pasystray
     kwalletd6
